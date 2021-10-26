@@ -1,5 +1,4 @@
-# Proyek-ImplementasiPengujianSistemInformasi
-## CIE61021 - Implementasi dan Pengujian Sistem Informasi
+# Sistem Aplikasi Timer Belajar
 ### Syarat
 * Composer\
 Jika belum install klik dibawah ini:\
