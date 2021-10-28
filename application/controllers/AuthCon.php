@@ -7,31 +7,67 @@ class AuthCon extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
+        $this->load->model('AuthMod');
+        $this->load->helper('url', 'file');
     }
 
     function index()
     {
-        $this->load->view('v_login');
+        $this->load->view('auth/v_login');
     }
 
     function login()
     {
-        $this->load->model('users');
-        // $this->load->library('form_validation');
-        // $rules = $this->users->rules();
-        // $this->form_validation->set_rules($rules);
-        // if ($this->form_validation->run() == false) {
-        //     return $this->load->view('v_auth');
-        // }
-        $uname = $this->input->post('username');
+        $this->form_validation->set_rules('user_name', 'Username', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+        $uname = $this->input->post('user_name');
         $pass = $this->input->post('password');
-        if ($this->users->checkusersDB($uname, $pass)) {
-            echo "sukses login";
-            redirect(200);
+        $user = $this->db->get_where('users', ['username' => $uname])->row_array();
+        if ($this->form_validation->run() == false) {
+            $this->load->view('auth/v_login');
         } else {
-            echo "gagal";
-            redirect(401);
+            if ($user) {
+                if (password_verify($pass, $user['password'])) {
+                    $data = [
+                        'id' => $user['id'],
+                        'username' => $user['username']
+                    ];
+                    $this->session->set_userdata($data);
+                    redirect('dashboard', 'refresh');
+                } else {
+                    //$this->session->set_flashdata('message', 'password salah');
+                    echo 'password salah';
+                }
+            } else {
+                //$this->session->set_flashdata('message', 'username belum terdaftar');
+                echo 'username belum terdaftar';
+            }
         }
-        $this->load->view('v_login');
+    }
+
+    function logout()
+    {
+        $this->session->unset_userdata('id');
+        $this->session->unset_userdata('username');
+        $this->session->set_flashdata('message', 'berhasil keluar');
+        redirect('login');
+    }
+
+    function register()
+    {
+        $this->form_validation->set_rules('name_full', 'Fullname', 'required');
+        $this->form_validation->set_rules('user_name', 'Username', 'required|trim|is_unique[users.username]');
+        $this->form_validation->set_rules('user_email', 'Email', 'required|trim|valid_email|is_unique[users.email]');
+        $this->form_validation->set_rules('user_password1', 'Password', 'required|trim|min_length[4]|matches[user_password2]', [
+            'matches' => 'Password tidak cocok!',
+            'min_length' => 'Password terlalu pendek!'
+        ]);
+        $this->form_validation->set_rules('user_password2', 'Password', 'required|trim|matches[user_password1]');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('auth/v_register');
+        } else {
+            $this->AuthMod->dbInsertUser();
+            return $this->load->view('auth/v_login');
+        }
     }
 }
