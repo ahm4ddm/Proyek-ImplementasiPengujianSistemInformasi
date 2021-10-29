@@ -6,12 +6,21 @@ class TodoMod extends CI_Model
     public $waktu;
     public $status;
 
-    public function dbInsertMod()
+    public function dbCreateMod()
     {
         $this->judul = htmlspecialchars($this->input->post('judul', true));
         $this->catatan = htmlspecialchars($this->input->post('catatan', true));
         $this->waktu = date('Y-m-d H:i:s');
         $this->status = 1;
         $this->db->insert('todos', $this);
+    }
+
+    public function dbUpdateMod()
+    {
+        $this->judul = htmlspecialchars($this->input->post('judul', true));
+        $this->catatan = htmlspecialchars($this->input->post('catatan', true));
+        $this->waktu = date('Y-m-d H:i:s');
+        $this->status = $_POST['status'];
+        $this->db->update('todos', $this, array('id' => $_POST['id']));
     }
 }
