@@ -15,6 +15,13 @@ class TodoMod extends CI_Model
         $this->db->insert('todos', $this);
     }
 
+    public function dbReadMod()
+    {
+        $query = $this->db->get('todos');
+        $res = $query->result_array();
+        return $res;
+    }
+
     public function dbUpdateMod()
     {
         $this->judul = htmlspecialchars($this->input->post('judul', true));
@@ -22,5 +29,10 @@ class TodoMod extends CI_Model
         $this->waktu = date('Y-m-d H:i:s');
         $this->status = $_POST['status'];
         $this->db->update('todos', $this, array('id' => $_POST['id']));
+    }
+
+    public function dbDeleteMod()
+    {
+        $this->db->delete('todos', array('id' => $_POST['id']));
     }
 }
