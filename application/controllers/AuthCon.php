@@ -13,7 +13,7 @@ class AuthCon extends CI_Controller
 
     function index()
     {
-        $this->load->view('auth/v_login');
+        $this->load->view('login.html');
     }
 
     function login()
@@ -24,10 +24,21 @@ class AuthCon extends CI_Controller
         $pass = $this->input->post('password');
         $user = $this->db->get_where('users', ['username' => $uname])->row_array();
         if ($this->form_validation->run() == false) {
-            $this->load->view('auth/v_login');
+            $this->load->view('auth/login.html');
         } else {
             if ($user) {
                 if (password_verify($pass, $user['password'])) {
+                    $data = [
+                        'id' => $user['id'],
+                        'username' => $user['username']
+                    ];
+                    $this->session->set_userdata($data);
+                    redirect('dashboard', 'refresh');
+                } /*else {
+                    //$this->session->set_flashdata('message', 'password salah');
+                    echo 'password salah';
+                }*/
+                if ($this->db->where('password', $pass)) {
                     $data = [
                         'id' => $user['id'],
                         'username' => $user['username']
@@ -64,10 +75,10 @@ class AuthCon extends CI_Controller
         ]);
         $this->form_validation->set_rules('user_password2', 'Password', 'required|trim|matches[user_password1]');
         if ($this->form_validation->run() == false) {
-            $this->load->view('auth/v_register');
+            $this->load->view('auth/login.html');
         } else {
             $this->AuthMod->dbInsertUser();
-            return $this->load->view('auth/v_login');
+            return $this->load->view('auth/login.html');
         }
     }
 }
