@@ -6,33 +6,30 @@ class TodoMod extends CI_Model
     public $waktu;
     public $status;
 
-    public function dbCreateMod()
+    public function dbReadMod($id = null)
     {
-        $this->judul = htmlspecialchars($this->input->post('judul', true));
-        $this->catatan = htmlspecialchars($this->input->post('catatan', true));
-        $this->waktu = date('Y-m-d H:i:s');
-        $this->status = 1;
-        $this->db->insert('todos', $this);
+        if ($id === null) {
+            return $this->db->get('todos')->result_array();
+        } else {
+            return $this->db->get_where('todos', ['id' => $id])->result_array();
+        }
     }
 
-    public function dbReadMod()
+    public function dbCreateMod($data)
     {
-        $query = $this->db->get('todos');
-        $res = $query->result_array();
-        return $res;
+        $this->db->insert('todos', $data);
+        return $this->db->affected_rows();
     }
 
-    public function dbUpdateMod()
+    public function dbDeleteMod($id)
     {
-        $this->judul = htmlspecialchars($this->input->post('judul', true));
-        $this->catatan = htmlspecialchars($this->input->post('catatan', true));
-        $this->waktu = date('Y-m-d H:i:s');
-        $this->status = $_POST['status'];
-        $this->db->update('todos', $this, array('id' => $_POST['id']));
+        $this->db->delete('todos', ['id' => $id]);
+        return $this->db->affected_rows();
     }
 
-    public function dbDeleteMod()
+    public function dbUpdateMod($data, $id)
     {
-        $this->db->delete('todos', array('id' => $_POST['id']));
+        $this->db->update('todos', $data, ['id' => $id]);
+        return $this->db->affected_rows();
     }
 }
