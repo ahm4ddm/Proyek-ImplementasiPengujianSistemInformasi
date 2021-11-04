@@ -2,9 +2,9 @@
 |----|-----------|--|---|---|
 |01| Sistem dapat melakukan login|V|V|V|
 |02| Sistem dapat melakukan register pengguna|V|V|V|
-|03| Sistem dapat memulai timer||V||
-|04| Sistem dapat menjeda timer||V||
-|05| Sistem dapat melakukan reset timer||V||
+|03| Sistem dapat memulai timer|||V|
+|04| Sistem dapat menjeda timer|||V|
+|05| Sistem dapat melakukan reset timer|||V|
 |06| Sistem dapat menampilkan riwayat penggunaan timer|
 |07| Sistem dapat menyediakan pilihan backsound|
 |08| Sistem dapat memainkan backsound|
