@@ -13,7 +13,7 @@ class AuthCon extends CI_Controller
 
     function index()
     {
-        $this->load->view('login.html');
+        $this->load->view('auth/login.php');
     }
 
     function login()
@@ -24,7 +24,7 @@ class AuthCon extends CI_Controller
         $pass = $this->input->post('password');
         $user = $this->db->get_where('users', ['username' => $uname])->row_array();
         if ($this->form_validation->run() == false) {
-            $this->load->view('auth/login.html');
+            $this->load->view('auth/login.php');
         } else {
             if ($user) {
                 if (password_verify($pass, $user['password'])) {
@@ -61,7 +61,7 @@ class AuthCon extends CI_Controller
         $this->session->unset_userdata('id');
         $this->session->unset_userdata('username');
         $this->session->set_flashdata('message', 'berhasil keluar');
-        redirect('login');
+        redirect('/login');
     }
 
     function register()
@@ -75,10 +75,10 @@ class AuthCon extends CI_Controller
         ]);
         $this->form_validation->set_rules('user_password2', 'Password', 'required|trim|matches[user_password1]');
         if ($this->form_validation->run() == false) {
-            $this->load->view('auth/login.html');
+            $this->load->view('auth/login.php');
         } else {
             $this->AuthMod->dbInsertUser();
-            return $this->load->view('auth/login.html');
+            $this->load->view('auth/login.php');
         }
     }
 }
