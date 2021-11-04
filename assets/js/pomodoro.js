@@ -9,27 +9,19 @@ function startTimer(duration, display) {
         if (!isPaused) {
             minutes = parseInt(timer / 60, 10);
             seconds = parseInt(timer % 60, 10);
-
             minutes = minutes < 10 ? "0" + minutes : minutes;
             seconds = seconds < 10 ? "0" + seconds : seconds;
-
             display.text(minutes + ":" + seconds);
-
             if (--timer < 0) {
                 timer = duration;
                 $("#stop").hide();
                 $("#resume").hide();
             }
-
         }
-
     }, 1000);
-
 }
 
-
 function startPomodoro(min) {
-
     var fiveMinutes = 60 * min,
         display = $('#time');
     startTimer(fiveMinutes, display);
@@ -41,7 +33,6 @@ $("#mulai").on("click", function () {
     isPaused = false;
     startPomodoro(minutes);
     $("#berhenti").show();
-
 });
 
 //berhenti button
@@ -56,7 +47,6 @@ $("#lanjut").on("click", function () {
     $(this).hide();
     $("#berhenti").show();
     isPaused = !isPaused;
-
 });
 
 //Reset button
@@ -66,6 +56,4 @@ $("#segar").on("click", function () {
     $("#mulai").show();
     clearInterval(timerId);
     $("#time").text(minutes);
-
-
 });
