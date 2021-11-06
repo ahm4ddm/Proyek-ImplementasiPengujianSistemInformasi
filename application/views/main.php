@@ -37,25 +37,26 @@
     </head>
     <body>
         <div class="container-fluid">
-
                 <div class="row">
                     <!-- Dropdown -->
                     <div class="dropdown col-md-6">
-                        <!-- Button Login -->
-                        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    
+                    <?php if($this->session->userdata('id') !== null){ ?>
+                            <button class="btn" type="button" id="menuDropdown" data-bs-toggle="dropdown" style="margin-left:-10px" aria-expanded="false">
+                            <h3 style="padding-top:5px" class="usernameText"><img src="<?php echo base_url()?>assets/img/profile.jpg" width="30px" height="30px" style="border-radius:50%;object-fit: cover;" alt="profile picture">   
+                                Hi, Lorem</h3>
+                            </button>
+                            <ul class="dropdown-menu text-center" aria-labelledby="menuDropdown">
+                                <li><h3>Great!</h3><p>A</p></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#profileModal">Profile</a></li>
+                                <li><a class="dropdown-item" >Activity</a></li>
+                                <li><a class="dropdown-item" href="<?php base_url('authcon/logout') ?>">Logout</a></li>
+                            </ul>
+                    <?php }else{ ?>
+                        <button style="margin-top:10px" type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#loginModal">
                             Login
                         </button>
-
-                        <button class="btn" type="button" id="menuDropdown" data-bs-toggle="dropdown" style="margin-left:-10px" aria-expanded="false">
-                        <h3 style="padding-top:5px" class="usernameText"><img src="<?php echo base_url()?>assets/img/profile.jpg" width="30px" height="30px" style="border-radius:50%;object-fit: cover;" alt="profile picture">   
-                            Hi, Lorem</h3>
-                        </button>
-                        <ul class="dropdown-menu text-center" aria-labelledby="menuDropdown">
-                            <li><h3>Great!</h3><p>A</p></li>
-                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#profileModal">Profile</a></li>
-                            <li><a class="dropdown-item" >Activity</a></li>
-                            <li><a class="dropdown-item" >Logout</a></li>
-                        </ul>
+                    <?php } ?>
                     </div>
                     <div class="col-md-6 text-end">
                         <div class="dropdown">
@@ -75,7 +76,7 @@
                 </div>
                 <div class="row" style="min-height:85%;">
                     <div class="col-md-12 d-flex flex-column  justify-content-center align-items-center">
-                        <h1 style="font-size:13em;letter-spacing: -10px;font-weight:800" class="text-light">25:00</h1>
+                        <h1 style="font-size:13em;letter-spacing: -10px;font-weight:800" class="text-light" id="time">1</h1>
                     </div>
                 </div>
                 <div class="row">
@@ -83,7 +84,10 @@
                         <a href="#" data-bs-toggle="modal" data-bs-target="#leaderboardModal"><i class="fas fa-award" style="font-size: 2rem;color:white"></i></a>
                     </div>
                     <div class="col-md-4 text-center">
-                        <a href="#"><i class="fas fa-play" style="font-size: 2rem;color:white"></i></a>
+                        <a href="#" id="mulai"><i class="fas fa-play" style="font-size: 2rem;color:white;padding-left:20px;padding-right:20px;"></i></a>
+                        <a href="#" id="berhenti"><i class="fas fa-pause" style="font-size: 2rem;color:white;padding-left:20px;padding-right:20px;"></i></a>
+                        <a href="#" id="lanjut"><i class="fas fa-play" style="font-size: 2rem;color:white;padding-left:20px;padding-right:20px;"></i></a>
+                        <a href="#" id="segar"><i class="fas fa-redo-alt" style="font-size: 2rem;color:white;padding-left:20px;padding-right:20px;"></i></a>
                     </div>
                     <div class="col-md-4 text-end">
                         <a href="#"> <i class="fas fa-plus" style="font-size: 2rem;color:white"></i></a>

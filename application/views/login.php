@@ -89,15 +89,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
           <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-      <form>
+      <form method="post" action="<?php base_url('authcon/login'); ?>">
         <div class="mb-3">
-          <input type="text" placeholder="Username" class="form-control text-center" id="usernameRegister" aria-describedby="email">
+          <input type="text" name="name_full" placeholder="Username" class="form-control text-center" id="usernameRegister" aria-describedby="username" required>
         </div>
         <div class="mb-3">
-          <input type="password" placeholder="Password" class="form-control text-center" id="passwordRegister">
+          <input type="password" name="password" placeholder="Password" class="form-control text-center" id="passwordRegister" required>
         </div>
         <div class="mb-3 d-grid gap-2">
-          <button type="button" placeholder="Username" class="btn btn-block btn-secondary">Register</button>
+          <button type="submit" placeholder="Username" class="btn btn-block btn-secondary">Login</button>
         </div>
         <div class="mb-3 text-center">
           <span>Don't have account yet? </span><a class="" data-bs-toggle="modal" style="color:black" data-bs-target="#registerModal"><strong>Register</strong></a>
@@ -117,18 +117,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
           <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-      <form>
+      <form  action="<?php base_url('authcon/register'); ?>">
         <div class="mb-3">
-          <input type="email" placeholder="Email" class="form-control text-center" id="emailRegister" aria-describedby="email">
+          <input type="email" placeholder="Email" class="form-control text-center" id="emailRegister" aria-describedby="email" required>
         </div>
         <div class="mb-3">
-          <input type="text" placeholder="Username" class="form-control text-center" id="usernameRegister" aria-describedby="username">
+          <input type="text" placeholder="Username" class="form-control text-center" id="usernameRegister" aria-describedby="username" required>
         </div>
         <div class="mb-3">
-          <input type="password" placeholder="Password" class="form-control text-center" id="passwordRegister">
+          <input type="password" placeholder="Password" class="form-control text-center" id="passwordRegister" required>
         </div>
         <div class="mb-3">
-          <input type="password" placeholder="Confirm Password" class="form-control text-center" id="passwordConfirmationRegister">
+          <input type="password" placeholder="Confirm Password" class="form-control text-center" id="passwordConfirmationRegister" required>
         </div>
         <div class="mb-3 d-grid gap-2">
           <button type="button" placeholder="Username" class="btn btn-block btn-secondary">Register</button>
@@ -197,5 +197,72 @@ defined('BASEPATH') or exit('No direct script access allowed');
   </div>
 </div>
 
-<script src="https://kit.fontawesome.com/ac17403586.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/ac17403586.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+        <script>
+        let minutes = 25;
+        let isPaused = false;
+        let timerId = 0;
+
+        $("#time").text(minutes);
+        $("#berhenti").hide();
+        $("#lanjut").hide();
+        $("#segar").hide();
+        function startTimer(duration, display) {
+            let timer = duration, minutes, seconds;
+            timerId = setInterval(function () {
+                if (!isPaused) {
+                    minutes = parseInt(timer / 60, 10);
+                    seconds = parseInt(timer % 60, 10);
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+                    display.text(minutes + ":" + seconds);
+                    if (--timer < 0) {
+                        timer = duration;
+                        $("#stop").hide();
+                        $("#resume").hide();
+                    }
+                }
+            }, 1000);
+        }
+
+        function startPomodoro(min) {
+            var fiveMinutes = 60 * min,
+                display = $('#time');
+            startTimer(fiveMinutes, display);
+        }
+
+        // mulai button
+        $("#mulai").on("click", function () {
+            $(this).hide();
+            isPaused = false;
+            startPomodoro(minutes);
+            $("#berhenti").show();
+        });
+
+        //berhenti button
+        $("#berhenti").on("click", function () {
+            $(this).hide();
+            $("#lanjut").show();
+            $("#segar").show();
+            isPaused = !isPaused;
+        });
+
+        //lanjut button
+        $("#lanjut").on("click", function () {
+            $(this).hide();
+            $("#berhenti").show();
+            $("#segar").hide();
+            isPaused = !isPaused;
+        });
+
+        //Reset button
+        $("#segar").on("click", function () {
+            $("#berhenti").hide();
+            $("#lanjut").hide();
+            $("#mulai").show();
+            clearInterval(timerId);
+            $("#time").text(minutes);
+        });
+    </script>
