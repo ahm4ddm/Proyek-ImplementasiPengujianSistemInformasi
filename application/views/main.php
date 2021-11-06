@@ -47,7 +47,7 @@
                         </button>
 
                         <button class="btn" type="button" id="menuDropdown" data-bs-toggle="dropdown" style="margin-left:-10px" aria-expanded="false">
-                        <h3 style="padding-top:5px" class="usernameText"><img src="<?php echo base_url()?>/assets/img/profile.jpeg" width="30px" height="30px" style="border-radius:50%;object-fit: cover;" alt="profile picture">   
+                        <h3 style="padding-top:5px" class="usernameText"><img src="<?php echo base_url()?>assets/img/profile.jpg" width="30px" height="30px" style="border-radius:50%;object-fit: cover;" alt="profile picture">   
                             Hi, Lorem</h3>
                         </button>
                         <ul class="dropdown-menu text-center" aria-labelledby="menuDropdown">
@@ -80,7 +80,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <a href="#"><i class="fas fa-award" style="font-size: 2rem;color:white"></i></a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#leaderboardModal"><i class="fas fa-award" style="font-size: 2rem;color:white"></i></a>
                     </div>
                     <div class="col-md-4 text-center">
                         <a href="#"><i class="fas fa-play" style="font-size: 2rem;color:white"></i></a>

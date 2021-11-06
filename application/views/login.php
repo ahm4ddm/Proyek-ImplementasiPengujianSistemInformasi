@@ -50,7 +50,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <p>1</p>
               </div>
               <div class="col-md-3">
-                <img src="<?php echo base_url()?>/assets/img/profile.jpeg" width="75px" height="75px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
+                <img src="<?php echo base_url()?>assets/img/profile.jpg" width="75px" height="75px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
               </div>
               <div class="col-md-5">
                 <p>Lorem</p>
@@ -64,7 +64,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <p>2</p>
               </div>
               <div class="col-md-3">
-                <img src="<?php echo base_url()?>/assets/img/profile.jpeg" width="75px" height="75px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
+                <img src="<?php echo base_url()?>assets/img/profile.jpg" width="75px" height="75px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
               </div>
               <div class="col-md-5">
                 <p>Ipsum</p>
@@ -152,7 +152,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
         <div class="modal-body" style="padding-left:30px;padding-right:30px">
             <div class="row" style="padding-bottom:20px">
               <div class="col-md-3">
-                <img src="<?php echo base_url()?>/assets/img/profile.jpeg" width="100px" height="100px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
+                <img src="<?php echo base_url()?>assets/img/profile.jpg" width="100px" height="100px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
               </div>
               <div class="col-md-9">
                 <h3>Lorem</h3>
