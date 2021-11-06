@@ -22,6 +22,17 @@
             padding-left:50px;
             padding-right:50px;
         }
+
+        .usernameText:hover {
+            color: black;
+            letter-spacing: 1px;
+            transition: .5s;
+        }
+
+        .usernameText {
+            color : white;
+            transition: .5s;
+        }
     </style>
     </head>
     <body>
@@ -29,14 +40,14 @@
 
                 <div class="row">
                     <!-- Dropdown -->
-                    <div class="dropdown col-md-10">
+                    <div class="dropdown col-md-6">
                         <!-- Button Login -->
                         <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#loginModal">
                             Login
                         </button>
 
                         <button class="btn" type="button" id="menuDropdown" data-bs-toggle="dropdown" style="margin-left:-10px" aria-expanded="false">
-                        <h3 style="padding-top:5px" class="text-light"><img src="<?php echo base_url()?>/assets/img/profile.jpeg" width="30px" height="30px" style="border-radius:50%;object-fit: cover;" alt="profile picture">   
+                        <h3 style="padding-top:5px" class="usernameText"><img src="<?php echo base_url()?>/assets/img/profile.jpeg" width="30px" height="30px" style="border-radius:50%;object-fit: cover;" alt="profile picture">   
                             Hi, Lorem</h3>
                         </button>
                         <ul class="dropdown-menu text-center" aria-labelledby="menuDropdown">
@@ -46,7 +57,7 @@
                             <li><a class="dropdown-item" >Logout</a></li>
                         </ul>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-6 text-end">
                         <div class="dropdown">
                             <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 Select Your Music
@@ -57,13 +68,26 @@
                                 <li><a class="dropdown-item" href="#">Another action</a></li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
-                            <i style="font-size: 2rem;color:white;padding-left:10px;padding-top:10px" class="fas fa-music"></i>
+                            <a href="#"><i style="font-size: 2rem;color:white;padding-left:10px;margin-top:10px" class="fas fa-music"></i></a>
                         </div>
                         
                     </div>
                 </div>
-                <div class="col-md-12 d-flex flex-column h-75 justify-content-center align-items-center">
-                    <h1 style="font-size:13em;letter-spacing: -10px;font-weight:800" class="text-light">25:00</h1>
+                <div class="row" style="min-height:85%;">
+                    <div class="col-md-12 d-flex flex-column  justify-content-center align-items-center">
+                        <h1 style="font-size:13em;letter-spacing: -10px;font-weight:800" class="text-light">25:00</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="#"><i class="fas fa-award" style="font-size: 2rem;color:white"></i></a>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <a href="#"><i class="fas fa-play" style="font-size: 2rem;color:white"></i></a>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <a href="#"> <i class="fas fa-plus" style="font-size: 2rem;color:white"></i></a>
+                    </div>
                 </div>
         </div>
     </body>
