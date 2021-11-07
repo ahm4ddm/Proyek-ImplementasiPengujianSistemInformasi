@@ -40,11 +40,15 @@
         <div class="row">
             <!-- Dropdown -->
             <div class="dropdown col-md-6">
-
-                <?php if ($this->session->userdata('id') !== null) { ?>
+                <?php if (($this->session->userdata('id')) === null) { ?>
+                    <button style="margin-top:10px" type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        Login
+                    </button>
+                <?php } ?>
+                <?php if ($this->session->userdata('username')) { ?>
                     <button class="btn" type="button" id="menuDropdown" data-bs-toggle="dropdown" style="margin-left:-10px" aria-expanded="false">
-                        <h3 style="padding-top:5px" class="usernameText"><img src="<?php echo base_url() ?>assets/img/profile.jpg" width="30px" height="30px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
-                            Hi, Lorem</h3>
+                        <h3 style="padding-top:5px" class="usernameText"><img src="<?= site_url('assets/img/profile.jpeg'); ?>" width="30px" height="30px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
+                            <h3>Hi <?= $this->session->userdata('username'); ?></h3>
                     </button>
                     <ul class="dropdown-menu text-center" aria-labelledby="menuDropdown">
                         <li>
@@ -53,13 +57,10 @@
                         </li>
                         <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#profileModal">Profile</a></li>
                         <li><a class="dropdown-item">Activity</a></li>
-                        <li><a class="dropdown-item" href="<?php redirect('logout') ?>">Logout</a></li>
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     </ul>
-                <?php } else { ?>
-                    <button style="margin-top:10px" type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#loginModal">
-                        Login
-                    </button>
                 <?php } ?>
+                <?= $this->session->userdata('username'); ?>
             </div>
             <div class="col-md-6 text-end">
                 <div class="dropdown">
