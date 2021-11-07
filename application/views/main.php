@@ -53,7 +53,7 @@
                         </li>
                         <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#profileModal">Profile</a></li>
                         <li><a class="dropdown-item">Activity</a></li>
-                        <li><a class="dropdown-item" href="<?php base_url('authcon/logout') ?>">Logout</a></li>
+                        <li><a class="dropdown-item" href="<?php redirect('logout') ?>">Logout</a></li>
                     </ul>
                 <?php } else { ?>
                     <button style="margin-top:10px" type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#loginModal">
