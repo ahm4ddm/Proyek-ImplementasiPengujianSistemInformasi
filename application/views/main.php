@@ -45,7 +45,7 @@
                         Login
                     </button>
                 <?php } ?>
-                <?php if ($this->session->userdata('username')) { ?>
+                <?php if (($this->session->userdata('id'))) { ?>
                     <button class="btn" type="button" id="menuDropdown" data-bs-toggle="dropdown" style="margin-left:-10px" aria-expanded="false">
                         <h3 style="padding-top:5px" class="usernameText"><img src="<?= site_url('assets/img/profile.jpeg'); ?>" width="30px" height="30px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
                             <h3>Hi <?= $this->session->userdata('username'); ?></h3>
@@ -60,14 +60,12 @@
                         <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     </ul>
                 <?php } ?>
-                <?= $this->session->userdata('username'); ?>
             </div>
             <div class="col-md-6 text-end">
                 <div class="dropdown">
                     <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                         Select Your Music
                     </a>
-
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <li><a class="dropdown-item" href="#">Action</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
