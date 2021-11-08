@@ -76,7 +76,7 @@
                 </div>
                 <div class="row" style="min-height:85%;">
                     <div class="col-md-12 d-flex flex-column  justify-content-center align-items-center">
-                        <h1 style="font-size:13em;letter-spacing: -10px;font-weight:800" class="text-light" id="time">1</h1>
+                        <h1 style="font-size:13em;letter-spacing: -3px;font-weight:800" class="text-light" id="time"></h1>
                     </div>
                 </div>
                 <div class="row">
