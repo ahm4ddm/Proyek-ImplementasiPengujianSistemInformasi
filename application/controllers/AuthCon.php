@@ -31,6 +31,7 @@ class AuthCon extends CI_Controller
                 $data = [
                     'id' => $user['id'],
                     'username' => $user['username'],
+                    'nama' => $user['nama']
                 ];
                 $this->session->set_userdata($data);
                 redirect('main', 'refresh');
@@ -42,9 +43,9 @@ class AuthCon extends CI_Controller
                 $data = [
                     'id' => $user['id'],
                     'username' => $user['username'],
+                    'nama' => $user['nama']
                 ];
                 $this->session->set_userdata($data);
-                echo "mantap";
                 redirect('main', 'refresh');
             } else {
                 $this->session->set_flashdata('message', 'password salah');
