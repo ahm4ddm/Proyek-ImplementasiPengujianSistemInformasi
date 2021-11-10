@@ -19,9 +19,18 @@ class Main extends CI_Controller
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->model('LeadMod');
+	}
 	public function index()
 	{
-		$this->load->view('main');
-		$this->load->view('login');
+		$dataraw = $this->LeadMod->joins();
+		$data = array(
+			'leaderboard' => $dataraw
+		);
+		$this->load->view('main', $data);
+		$this->load->view('login', $data);
 	}
 }
