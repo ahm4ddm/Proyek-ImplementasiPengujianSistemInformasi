@@ -12,7 +12,7 @@
                 linear-gradient(rgba(0, 0, 0, 0.3),
                     rgba(0, 0, 0, 0.3)),
                 /* bottom, image */
-                url("<?php echo base_url() ?>/assets/img/bg.jpg");
+                url("<?= site_url('assets/img/bg.jpg'); ?>");
             background-repeat: no-repeat;
             background-size: cover;
         }
@@ -41,7 +41,7 @@
             <!-- Dropdown -->
             <div class="dropdown col-md-6">
                 <?php if (($this->session->userdata('id')) === null) { ?>
-                    <button style="margin-top:10px" type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <button style="margin-top:10px" type="button" class="btn btn-light" data-bs-toggle="modal" href="#loginModal">
                         Login
                     </button>
                 <?php } ?>
@@ -55,21 +55,45 @@
                             <h3>Great!</h3>
                             <p>A</p>
                         </li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#profileModal">Profile</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" href="#profileModal">Profile</a></li>
                         <li><a class="dropdown-item">Activity</a></li>
                         <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     </ul>
                 <?php } ?>
             </div>
+            <!-- <div class="col-md-6 text-end">
+                <div class="dropdown">
+                    <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        Select Your Music
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" id="satu" href="#"><button id='howler-play'>Sound 1</button></a></li>
+                        <li><a class="dropdown-item" id="dua" href="#"><button id='howler-play'>Sound 2</button></a></li>
+                        <li><a class="dropdown-item" id="tiga" href="#">Sound 3</a></li>
+                        <li><a class="dropdown-item" id="empat" href="#">Sound 4</a></li>
+                        <li><a class="dropdown-item" id="lima" href="#">Sound 5</a></li>
+
+                        <button id='howler-pause'>Pause</button>
+                        <button id='howler-stop'>Stop</button>
+                        <button id='howler-volup'>Vol+</button>
+                        <button id='howler-voldown'>Vol-</button>
+                    </ul>
+                    <a href="#"><i style="font-size: 2rem;color:white;padding-left:10px;margin-top:10px" class="fas fa-music"></i></a>
+                </div>
+
+            </div> -->
             <div class="col-md-6 text-end">
                 <div class="dropdown">
                     <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                         Select Your Music
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" id="satu" href="#"><button id='howler-play1'>Sound 01</button></a></li>
+                        <li><a class="dropdown-item" id="dua" href="#"><button id='howler-play2'>Sound 02</button></a></li>
+                        <li><a class="dropdown-item" id="tiga" href="#"><button id='howler-play3'>Sound 03</button></a></li>
+                        <li><a class="dropdown-item" id="empat" href="#"><button id='howler-play4'>Sound 04</button></a></li>
+                        <li><a class="dropdown-item" id="lima" href="#"><button id='howler-play5'>Sound 05</button></a></li>
+                        <li><a class="dropdown-item" href="#"><button id='howler-stop'>Stop</button></a></li>
                     </ul>
                     <a href="#"><i style="font-size: 2rem;color:white;padding-left:10px;margin-top:10px" class="fas fa-music"></i></a>
                 </div>
