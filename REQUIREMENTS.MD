@@ -5,7 +5,7 @@
 |03| Sistem dapat memulai timer|V|V|V|
 |04| Sistem dapat menjeda timer|V|V|V|
 |05| Sistem dapat melakukan reset timer|V|V|V|
-|06| Sistem dapat menampilkan riwayat penggunaan timer|||V|
+|06| Sistem dapat menampilkan riwayat penggunaan timer|V||V|
 |07| Sistem dapat menyediakan pilihan backsound|V|V|V|
 |08| Sistem dapat memainkan backsound|V|V|V|
 |09| Sistem dapat menampilkan notifikasi|
