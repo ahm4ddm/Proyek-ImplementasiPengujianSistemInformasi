@@ -1,7 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 ?>
-
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
@@ -36,6 +35,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
   </button> -->
 
 <!-- Leaderboard Modal -->
+<?php
+// $dataraw = file_get_contents('leaderboard.json');
+// $datas = json_decode($dataraw, true);
+// $datas = $datas['leaderboard'];
+?>
 <div class="modal fade" id="leaderboardModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -46,38 +50,26 @@ defined('BASEPATH') or exit('No direct script access allowed');
       <div class="modal-body" style="padding-left:30px;padding-right:30px">
         <form>
           <div class="row" style="padding-bottom:20px">
-            <div class="col-md-1">
-              <p>1</p>
-            </div>
-            <div class="col-md-3">
-              <img src="<?= site_url('assets/img/profile.jpeg'); ?>" width="75px" height="75px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
-            </div>
-            <div class="col-md-5">
-              <p>Lorem</p>
-            </div>
-            <div class="col-md-3">
-              <p>1050</p>
-            </div>
-          </div>
-          <div class="row" style="padding-bottom:20px">
-            <div class="col-md-1">
-              <p>2</p>
-            </div>
-            <div class="col-md-3">
-              <img src="<?= site_url('assets/img/profile.jpeg'); ?>" width="75px" height="75px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
-            </div>
-            <div class="col-md-5">
-              <p>Ipsum</p>
-            </div>
-            <div class="col-md-3">
-              <p>1000</p>
-            </div>
+            <?php $num = 1 ?>
+            <?php foreach ($leaderboard as $dt) : ?>
+              <div class="col-md-1">
+                <p><?= $num++ ?></p>
+              </div>
+              <div class="col-md-3">
+                <img src="<?= site_url('assets/img/profile.jpeg'); ?>" width="75px" height="75px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
+              </div>
+              <div class="col-md-5">
+                <p><?= $dt->username ?></p>
+              </div>
+              <div class="col-md-3">
+                <p><?= $dt->totalwaktu ?> menit</p>
+              </div>
+            <?php endforeach ?>
           </div>
         </form>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 <!-- Login Modal -->
@@ -119,7 +111,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
       <div class="modal-body">
         <form action="/register" method="POST" oninput='user_password2.setCustomValidity(user_password2.value != user_password1.value ? "Password tidak sesuai" : "")'>
           <div class="mb-3">
-            <input type="text" name="name_full" placeholder="Nama Lengkap" class="form-control text-center" id="usernameRegister" aria-describedby="username" required>
+            <input type="text" name="name_full" placeholder="Nama Lengkap" class="form-control text-center" id="nameRegister" aria-describedby="username" required>
           </div>
           <div class="mb-3">
             <input type="text" name="user_name" placeholder="Username" class="form-control text-center" id="usernameRegister" aria-describedby="username" required>
@@ -155,11 +147,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
       <div class="modal-body" style="padding-left:30px;padding-right:30px">
         <div class="row" style="padding-bottom:20px">
           <div class="col-md-3">
-            <img src="<?php echo base_url() ?>assets/img/profile.jpg" width="100px" height="100px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
+            <img src="<?= site_url('assets/img/profile.jpeg'); ?>" width="100px" height="100px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
           </div>
           <div class="col-md-9">
-            <h3>Lorem</h3>
-            <p>aaaaaaaaa</p>
+            <h3><?php echo $username; ?></h3>
+            <?php if ($totalwaktu == 0) {
+              echo "Kamu belum menggunakan aplikasi ini";
+            } else {
+              echo $totalwaktu . " menit";
+            }; ?>
           </div>
         </div>
         <div class="row">
@@ -172,37 +168,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
     </div>
   </div>
 
-  <!-- Profile Modal -->
-  <div class="modal fade" id="leaderboardModal" tabindex="-1" aria-labelledby="leaderboardModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body" style="padding-left:30px;padding-right:30px">
-          <div class="row" style="padding-bottom:20px">
-            <div class="col-md-3">
-              <img src="<?php echo base_url() ?>/assets/img/profile.jpeg" width="100px" height="100px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
-            </div>
-            <div class="col-md-9">
-              <h3>Lorem</h3>
-              <p>aaaaaaaaa</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="mb-3">
-              <button type="button" placeholder="Username" class="btn btn-outline-secondary" disabled>Grade A</button>
-            </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script src="https://kit.fontawesome.com/ac17403586.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
   <script>
     let minutes = 25;
     let isPaused = false;
@@ -269,5 +238,96 @@ defined('BASEPATH') or exit('No direct script access allowed');
       $("#mulai").show();
       clearInterval(timerId);
       $("#time").text(minutes);
+    });
+
+    //Sound Control
+    $(function() {
+      let howler1 = new Howl({
+        src: [
+          'assets/audio/Sound1.mp3',
+        ],
+        loop: true,
+        html5: true
+      });
+      let howler2 = new Howl({
+        src: [
+          'assets/audio/Sound2.mp3',
+        ],
+        loop: true,
+        html5: true
+      });
+      let howler3 = new Howl({
+        src: [
+          'assets/audio/Sound3.mp3',
+        ],
+        loop: true,
+        html5: true
+      });
+      let howler4 = new Howl({
+        src: [
+          'assets/audio/Sound4.mp3',
+        ],
+        loop: true,
+        html5: true
+      });
+      let howler5 = new Howl({
+        src: [
+          'assets/audio/Sound5.mp3',
+        ],
+        loop: true,
+        html5: true
+      });
+      $("#howler-play1").on("click", function() {
+        howler1.stop();
+        howler2.stop();
+        howler3.stop();
+        howler4.stop();
+        howler5.stop();
+        howler1.play();
+      });
+      $("#howler-play2").on("click", function() {
+        howler1.stop();
+        howler2.stop();
+        howler3.stop();
+        howler4.stop();
+        howler5.stop();
+        howler2.play();
+      });
+      $("#howler-play3").on("click", function() {
+        howler1.stop();
+        howler2.stop();
+        howler3.stop();
+        howler4.stop();
+        howler5.stop();
+        howler3.play();
+      });
+      $("#howler-play4").on("click", function() {
+        howler1.stop();
+        howler2.stop();
+        howler3.stop();
+        howler4.stop();
+        howler5.stop();
+        howler4.play();
+      });
+      $("#howler-play5").on("click", function() {
+        howler1.stop();
+        howler2.stop();
+        howler3.stop();
+        howler4.stop();
+        howler5.stop();
+        howler5.play();
+      });
+      $("#howler-stop").on("click", function() {
+        howler1.stop();
+        howler2.stop();
+        howler3.stop();
+        howler4.stop();
+        howler5.stop();
+      });
+    });
+
+    //change dropdown music
+    $(".dropdown-menu li a").click(function() {
+      $(".btn:first-child").html($(this).text() + ' <span class="caret"></span>');
     });
   </script>
