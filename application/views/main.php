@@ -88,13 +88,13 @@
                         Select Your Music
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" id="satu" href="#"><button id='howler-play1'>Sound 01</button></a></li>
-                        <li><a class="dropdown-item" id="dua" href="#"><button id='howler-play2'>Sound 02</button></a></li>
-                        <li><a class="dropdown-item" id="tiga" href="#"><button id='howler-play3'>Sound 03</button></a></li>
-                        <li><a class="dropdown-item" id="empat" href="#"><button id='howler-play4'>Sound 04</button></a></li>
-                        <li><a class="dropdown-item" id="lima" href="#"><button id='howler-play5'>Sound 05</button></a></li>
-                        <li><a class="dropdown-item" href="#"><button id='howler-stop'>Stop</button></a></li>
+                        <li><a class="dropdown-item" id="satu" href="#">Sound 01 <button class="fas fa-play-circle" id='howler-play1'></button></a></li>
+                        <li><a class="dropdown-item" id="dua" href="#">Sound 02 <button class="fas fa-play-circle" id='howler-play2'></button></a></li>
+                        <li><a class="dropdown-item" id="tiga" href="#">Sound 03 <button class="fas fa-play-circle" id='howler-play3'></button></a></li>
+                        <li><a class="dropdown-item" id="empat" href="#">Sound 04 <button class="fas fa-play-circle" id='howler-play4'></button></a></li>
+                        <li><a class="dropdown-item" id="lima" href="#">Sound 05 <button class="fas fa-play-circle" id='howler-play5'></button></a></li>
                     </ul>
+                    <a href="#"><button class="fas fa-stop-circle" id='howler-stop'></button></a>
                     <a href="#"><i style="font-size: 2rem;color:white;padding-left:10px;margin-top:10px" class="fas fa-music"></i></a>
                 </div>
 
