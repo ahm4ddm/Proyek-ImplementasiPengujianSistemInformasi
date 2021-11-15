@@ -9,6 +9,7 @@ class AuthCon extends CI_Controller
         $this->load->library('session');
         $this->load->model('AuthMod');
         $this->load->helper('url', 'file');
+        $this->load->model('LeadMod');
     }
 
     function index()
@@ -18,42 +19,34 @@ class AuthCon extends CI_Controller
 
     function login()
     {
-        // $this->form_validation->set_rules('user_name', 'Username', 'required');
-        // $this->form_validation->set_rules('password', 'Password', 'required');
         $uname = $this->input->post('user_name');
         $pass = $this->input->post('password');
         $user = $this->db->get_where('users', ['username' => $uname])->row_array();
-        // if ($this->form_validation->run() == false) {
-        //     $this->load->view('login');
-        // } else {
         if ($user) {
-            if (password_verify($pass, $user['password'])) {
-                $data = [
+            $dataraw = $this->LeadMod->joins();
+            $user_time = $this->db->get_where('pomodoros', ['id' => $user['id']])->row_array();
+            if (password_verify($pass, $user['password']) || $this->db->where('password', $pass)) {
+                if (!isset($user_time['totalwaktu'])) {
+                    $user_time['totalwaktu'] = 0;
+                }
+                $data = array(
                     'id' => $user['id'],
                     'username' => $user['username'],
-                    'nama' => $user['nama']
-                ];
+                    'nama' => $user['nama'],
+                    'totalwaktu' => $user_time['totalwaktu'],
+                    'statuslogin' => 1,
+                    'leaderboard' => $dataraw
+                );
                 $this->session->set_userdata($data);
-                redirect('main', 'refresh');
+                $this->load->view('main', $data);
+                $this->load->view('login', $data);
             } else {
-                $this->session->set_flashdata('message', 'password salah');
-                redirect('main', 'refresh');
-            }
-            if ($this->db->where('password', $pass)) {
-                $data = [
-                    'id' => $user['id'],
-                    'username' => $user['username'],
-                    'nama' => $user['nama']
-                ];
-                $this->session->set_userdata($data);
-                redirect('main', 'refresh');
-            } else {
-                $this->session->set_flashdata('message', 'password salah');
-                redirect('main', 'refresh');
+                $this->session->set_userdata('statuslogin', 2);
+                redirect('/main');
             }
         } else {
-            $this->session->set_flashdata('message', 'username belum terdaftar');
-            redirect('main', 'refresh');
+            $this->session->set_userdata('statuslogin', 2);
+            redirect('/main');
         }
     }
 
@@ -61,31 +54,25 @@ class AuthCon extends CI_Controller
     {
         $this->session->unset_userdata('id');
         $this->session->unset_userdata('username');
+        $this->session->set_flashdata('statuslogin', 0);
+        $this->session->set_flashdata('dupun', 0);
+        $this->session->set_flashdata('dupem', 0);
         $this->session->set_flashdata('message', 'berhasil keluar');
         redirect('main', 'refresh');
     }
 
     function register()
     {
-        // $this->form_validation->set_rules('name_full', 'Fullname', 'required');
-        // $this->form_validation->set_rules('user_name', 'Username', 'required|trim|is_unique[users.username]');
-        // $this->form_validation->set_rules('user_email', 'Email', 'required|trim|valid_email|is_unique[users.email]');
-        // $this->form_validation->set_rules('user_password1', 'Password', 'required|trim|min_length[4]|matches[user_password2]', [
-        //     'matches' => 'Password tidak cocok!',
-        //     'min_length' => 'Password terlalu pendek!'
-        // ]);
-        //$this->form_validation->set_rules('user_password2', 'Password', 'required|trim|matches[user_password1]');
-        // if ($this->form_validation->run() == false) {
-        //     $this->load->view('auth/login.php');
-        // } else {
-        //     $this->AuthMod->dbInsertUser();
-        //     $this->load->view('auth/login.php');
-        // }
-        // $this->input->post('name_full');
-        // $this->input->post('user_name');
-        // $this->input->post('user_email');
-        // $this->input->post('user_password1');
+        $user = $this->db->get_where('users', ['username' => $this->input->post('user_name')])->row_array();
+        $email = $this->db->get_where('users', ['email' => $this->input->post('user_email')])->row_array();
+        if ($user or $email) {
+            $this->session->set_userdata('dup', 1);
+            $this->load->view('main');
+            $this->load->view('login');
+        }
+        $this->session->set_flashdata('dup', 0);
         $this->AuthMod->dbInsertUser();
-        redirect('main', 'refresh');
+        $this->load->view('main');
+        $this->load->view('login');
     }
 }
