@@ -23,12 +23,15 @@ class Main extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('LeadMod');
+		$this->load->library('session');
 	}
 	public function index()
 	{
 		$dataraw = $this->LeadMod->joins();
 		$data = array(
-			'leaderboard' => $dataraw
+			'leaderboard' => $dataraw,
+			'statuslogin' => 0,
+			'dup' => 0
 		);
 		$this->load->view('main', $data);
 		$this->load->view('login', $data);
