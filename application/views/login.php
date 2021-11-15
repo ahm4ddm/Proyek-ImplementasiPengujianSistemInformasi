@@ -35,11 +35,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
   </button> -->
 
 <!-- Leaderboard Modal -->
-<?php
-// $dataraw = file_get_contents('leaderboard.json');
-// $datas = json_decode($dataraw, true);
-// $datas = $datas['leaderboard'];
-?>
 <div class="modal fade" id="leaderboardModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -91,6 +86,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
           <div class="mb-3 d-grid gap-2">
             <button type="submit" id="login" class="btn btn-block btn-secondary">Login</button>
           </div>
+          <div class="form-group">
+            <?php if ($_SESSION['statuslogin'] === 2) {
+              echo '<div class="alert alert-warning" role="alert">
+                      Invalid username or password!
+                    </div>';
+            } ?>
+          </div>
           <div class="mb-3 text-center">
             <span>Don't have account yet? </span><a class="" data-bs-toggle="modal" style="color:black" href="#registerModal"><strong>Register</strong></a>
           </div>
@@ -109,15 +111,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
         <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/register" method="POST" oninput='user_password2.setCustomValidity(user_password2.value != user_password1.value ? "Password tidak sesuai" : "")'>
+        <form action="/register" method="POST" oninput='user_password2.setCustomValidity(user_password2.value != user_password1.value ? "Password not match!" : "")'>
           <div class="mb-3">
-            <input type="text" name="name_full" placeholder="Nama Lengkap" class="form-control text-center" id="nameRegister" aria-describedby="username" required>
+            <input type="text" name="name_full" placeholder="Full Name" class="form-control text-center" id="nameRegister" aria-describedby="username" required>
           </div>
           <div class="mb-3">
-            <input type="text" name="user_name" placeholder="Username" class="form-control text-center" id="usernameRegister" aria-describedby="username" required>
+            <div class="form-group">
+              <input type="text" name="user_name" placeholder="Username" class="form-control text-center" id="usernameRegister" aria-describedby="username" required>
+            </div>
           </div>
           <div class="mb-3">
-            <input type="email" name="user_email" placeholder="Email" class="form-control text-center" id="emailRegister" aria-describedby="email" required>
+            <div class="form-group">
+              <input type="email" name="user_email" placeholder="Email" class="form-control text-center" id="emailRegister" aria-describedby="email" required>
+            </div>
           </div>
           <div class="mb-3">
             <input type="password" name="user_password1" placeholder="Password" class="form-control text-center" id="passwordRegister" required>
@@ -127,6 +133,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
           </div>
           <div class="mb-3 d-grid gap-2">
             <button type="submit" class="btn btn-block btn-secondary">Register</button>
+            <?php if ($_SESSION['dup'] === 1) {
+              echo '<div class="alert alert-warning" role="alert">
+                  Email or username already exists!
+                    </div>';
+            } ?>
           </div>
           <div class="mb-3 text-center">
             <span>Already have an account? </span><a class="" style="color:black" data-bs-toggle="modal" href="#loginModal"><strong>Login</strong></a>
