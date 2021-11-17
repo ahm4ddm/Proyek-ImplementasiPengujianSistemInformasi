@@ -1,4 +1,7 @@
 <?php
+
+use phpDocumentor\Reflection\PseudoTypes\False_;
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Main extends CI_Controller
@@ -24,14 +27,25 @@ class Main extends CI_Controller
 		parent::__construct();
 		$this->load->model('LeadMod');
 		$this->load->library('session');
+		$this->load->library('form_validation');
 	}
 	public function index()
 	{
+		if ($this->form_validation->run() == false) {
+			$dataraw = $this->LeadMod->joins();
+			$data = array(
+				'leaderboard' => $dataraw,
+				'username' => null,
+				'totalwaktu' => null
+			);
+			$this->load->view('main', $data);
+			$this->load->view('login', $data);
+		}
 		$dataraw = $this->LeadMod->joins();
 		$data = array(
 			'leaderboard' => $dataraw,
-			'statuslogin' => 0,
-			'dup' => 0
+			'username' => null,
+			'totalwaktu' => null
 		);
 		$this->load->view('main', $data);
 		$this->load->view('login', $data);
