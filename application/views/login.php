@@ -76,22 +76,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
         <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="post" action="/login">
+        <form method="post" action="/login" id="log_form">
           <div class="mb-3">
-            <input type="text" name="user_name" placeholder="Username" class="form-control text-center" aria-describedby="username" required>
+            <input type="text" name="user_name" id="user_name" placeholder="Username" class="form-control text-center" aria-describedby="username">
           </div>
           <div class="mb-3">
-            <input type="password" name="password" placeholder="Password" class="form-control text-center" required>
+            <input type="password" name="password" id="password" placeholder="Password" class="form-control text-center">
           </div>
           <div class="mb-3 d-grid gap-2">
-            <button type="submit" id="login" class="btn btn-block btn-secondary">Login</button>
+            <button type="submit" class="btn btn-block btn-secondary">Login</button>
           </div>
           <div class="form-group">
-            <?php if ($_SESSION['statuslogin'] === 2) {
-              echo '<div class="alert alert-warning" role="alert">
-                      Invalid username or password!
-                    </div>';
-            } ?>
           </div>
           <div class="mb-3 text-center">
             <span>Don't have account yet? </span><a class="" data-bs-toggle="modal" style="color:black" href="#registerModal"><strong>Register</strong></a>
@@ -111,33 +106,30 @@ defined('BASEPATH') or exit('No direct script access allowed');
         <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/register" method="POST" oninput='user_password2.setCustomValidity(user_password2.value != user_password1.value ? "Password not match!" : "")'>
+        <form method="post" action="/register" id="reg_form">
           <div class="mb-3">
-            <input type="text" name="name_full" placeholder="Full Name" class="form-control text-center" id="nameRegister" aria-describedby="username" required>
+            <input type="text" name="name_full" id="name_full" placeholder="Full Name" class="form-control text-center" aria-describedby="fullname">
           </div>
           <div class="mb-3">
             <div class="form-group">
-              <input type="text" name="user_name" placeholder="Username" class="form-control text-center" id="usernameRegister" aria-describedby="username" required>
+              <input type="text" name="user_nameR" id="user_nameR" placeholder="Username" class="form-control text-center" aria-describedby="username">
+              <?php echo form_error('user_nameR', '<small class="text-danger">', '</small>'); ?>
             </div>
           </div>
           <div class="mb-3">
             <div class="form-group">
-              <input type="email" name="user_email" placeholder="Email" class="form-control text-center" id="emailRegister" aria-describedby="email" required>
+              <input type="email" name="user_email" id="user_email" placeholder="Email" class="form-control text-center" aria-describedby="email">
+              <?php echo form_error('user_email', '<small class="text-danger">', '</small>'); ?>
             </div>
           </div>
           <div class="mb-3">
-            <input type="password" name="user_password1" placeholder="Password" class="form-control text-center" id="passwordRegister" required>
+            <input type="password" name="user_password1" id="user_password1" placeholder="Password" class="form-control text-center">
           </div>
           <div class="mb-3">
-            <input type="password" name="user_password2" placeholder="Confirm Password" class="form-control text-center" id="passwordConfirmationRegister" required>
+            <input type="password" name="user_password2" id="user_password2" placeholder="Confirm Password" class="form-control text-center">
           </div>
           <div class="mb-3 d-grid gap-2">
-            <button type="submit" class="btn btn-block btn-secondary">Register</button>
-            <?php if ($_SESSION['dup'] === 1) {
-              echo '<div class="alert alert-warning" role="alert">
-                  Email or username already exists!
-                    </div>';
-            } ?>
+            <button type="submit" class="btn btn-block btn-secondary" onclick="register_user();">Register</button>
           </div>
           <div class="mb-3 text-center">
             <span>Already have an account? </span><a class="" style="color:black" data-bs-toggle="modal" href="#loginModal"><strong>Login</strong></a>
@@ -183,162 +175,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-  <script>
-    let minutes = 25;
-    let isPaused = false;
-    let timerId = 0;
-
-    $("#time").text(minutes);
-    $("#berhenti").hide();
-    $("#lanjut").hide();
-    $("#segar").hide();
-
-    function startTimer(duration, display) {
-      let timer = duration,
-        minutes, seconds;
-      timerId = setInterval(function() {
-        if (!isPaused) {
-          minutes = parseInt(timer / 60, 10);
-          seconds = parseInt(timer % 60, 10);
-          minutes = minutes < 10 ? "0" + minutes : minutes;
-          seconds = seconds < 10 ? "0" + seconds : seconds;
-          display.text(minutes + ":" + seconds);
-          if (--timer < 0) {
-            timer = duration;
-            $("#stop").hide();
-            $("#resume").hide();
-          }
-        }
-      }, 1000);
-    }
-
-    function startPomodoro(min) {
-      var fiveMinutes = 60 * min,
-        display = $('#time');
-      startTimer(fiveMinutes, display);
-    }
-
-    // mulai button
-    $("#mulai").on("click", function() {
-      $(this).hide();
-      isPaused = false;
-      startPomodoro(minutes);
-      $("#berhenti").show();
-    });
-
-    //berhenti button
-    $("#berhenti").on("click", function() {
-      $(this).hide();
-      $("#lanjut").show();
-      $("#segar").show();
-      isPaused = !isPaused;
-    });
-
-    //lanjut button
-    $("#lanjut").on("click", function() {
-      $(this).hide();
-      $("#berhenti").show();
-      $("#segar").hide();
-      isPaused = !isPaused;
-    });
-
-    //Reset button
-    $("#segar").on("click", function() {
-      $("#berhenti").hide();
-      $("#lanjut").hide();
-      $("#mulai").show();
-      clearInterval(timerId);
-      $("#time").text(minutes);
-    });
-
-    //Sound Control
-    $(function() {
-      let howler1 = new Howl({
-        src: [
-          'assets/audio/Sound1.mp3',
-        ],
-        loop: true,
-        html5: true
-      });
-      let howler2 = new Howl({
-        src: [
-          'assets/audio/Sound2.mp3',
-        ],
-        loop: true,
-        html5: true
-      });
-      let howler3 = new Howl({
-        src: [
-          'assets/audio/Sound3.mp3',
-        ],
-        loop: true,
-        html5: true
-      });
-      let howler4 = new Howl({
-        src: [
-          'assets/audio/Sound4.mp3',
-        ],
-        loop: true,
-        html5: true
-      });
-      let howler5 = new Howl({
-        src: [
-          'assets/audio/Sound5.mp3',
-        ],
-        loop: true,
-        html5: true
-      });
-      $("#howler-play1").on("click", function() {
-        howler1.stop();
-        howler2.stop();
-        howler3.stop();
-        howler4.stop();
-        howler5.stop();
-        howler1.play();
-      });
-      $("#howler-play2").on("click", function() {
-        howler1.stop();
-        howler2.stop();
-        howler3.stop();
-        howler4.stop();
-        howler5.stop();
-        howler2.play();
-      });
-      $("#howler-play3").on("click", function() {
-        howler1.stop();
-        howler2.stop();
-        howler3.stop();
-        howler4.stop();
-        howler5.stop();
-        howler3.play();
-      });
-      $("#howler-play4").on("click", function() {
-        howler1.stop();
-        howler2.stop();
-        howler3.stop();
-        howler4.stop();
-        howler5.stop();
-        howler4.play();
-      });
-      $("#howler-play5").on("click", function() {
-        howler1.stop();
-        howler2.stop();
-        howler3.stop();
-        howler4.stop();
-        howler5.stop();
-        howler5.play();
-      });
-      $("#howler-stop").on("click", function() {
-        howler1.stop();
-        howler2.stop();
-        howler3.stop();
-        howler4.stop();
-        howler5.stop();
-      });
-    });
-
-    //change dropdown music
-    $(".dropdown-item").click(function() {
-      $(".dropdown-toggle").html($(this).text() + ' <span class="caret"></span>');
-    });
-  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
+  <script src="/assets/js/sound_con.js"></script>
+  <script src="/assets/js/pomodoro.js"></script>
+  <script src="/assets/js/form_validations.js"></script>
