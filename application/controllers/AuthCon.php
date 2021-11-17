@@ -8,8 +8,8 @@ class AuthCon extends CI_Controller
         parent::__construct();
         $this->load->library('session');
         $this->load->model('AuthMod');
-        $this->load->helper('url', 'file');
         $this->load->model('LeadMod');
+        $this->load->library('form_validation');
     }
 
     function index()
@@ -34,18 +34,15 @@ class AuthCon extends CI_Controller
                     'username' => $user['username'],
                     'nama' => $user['nama'],
                     'totalwaktu' => $user_time['totalwaktu'],
-                    'statuslogin' => 1,
                     'leaderboard' => $dataraw
                 );
                 $this->session->set_userdata($data);
                 $this->load->view('main', $data);
                 $this->load->view('login', $data);
             } else {
-                $this->session->set_userdata('statuslogin', 2);
                 redirect('/main');
             }
         } else {
-            $this->session->set_userdata('statuslogin', 2);
             redirect('/main');
         }
     }
@@ -54,25 +51,21 @@ class AuthCon extends CI_Controller
     {
         $this->session->unset_userdata('id');
         $this->session->unset_userdata('username');
-        $this->session->set_flashdata('statuslogin', 0);
-        $this->session->set_flashdata('dupun', 0);
-        $this->session->set_flashdata('dupem', 0);
         $this->session->set_flashdata('message', 'berhasil keluar');
         redirect('main', 'refresh');
     }
 
     function register()
     {
-        $user = $this->db->get_where('users', ['username' => $this->input->post('user_name')])->row_array();
-        $email = $this->db->get_where('users', ['email' => $this->input->post('user_email')])->row_array();
-        if ($user or $email) {
-            $this->session->set_userdata('dup', 1);
+        $this->form_validation->set_rules('user_nameR', 'Username', 'required|is_unique[users.username]');
+        $this->form_validation->set_rules('user_email', 'Email', 'required|is_unique[users.email]');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('main');
+            $this->load->view('login');
+        } else {
+            $this->AuthMod->dbInsertUser();
             $this->load->view('main');
             $this->load->view('login');
         }
-        $this->session->set_flashdata('dup', 0);
-        $this->AuthMod->dbInsertUser();
-        $this->load->view('main');
-        $this->load->view('login');
     }
 }
