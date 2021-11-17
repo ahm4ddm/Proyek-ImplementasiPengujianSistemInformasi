@@ -61,27 +61,6 @@
                     </ul>
                 <?php } ?>
             </div>
-            <!-- <div class="col-md-6 text-end">
-                <div class="dropdown">
-                    <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        Select Your Music
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" id="satu" href="#"><button id='howler-play'>Sound 1</button></a></li>
-                        <li><a class="dropdown-item" id="dua" href="#"><button id='howler-play'>Sound 2</button></a></li>
-                        <li><a class="dropdown-item" id="tiga" href="#">Sound 3</a></li>
-                        <li><a class="dropdown-item" id="empat" href="#">Sound 4</a></li>
-                        <li><a class="dropdown-item" id="lima" href="#">Sound 5</a></li>
-
-                        <button id='howler-pause'>Pause</button>
-                        <button id='howler-stop'>Stop</button>
-                        <button id='howler-volup'>Vol+</button>
-                        <button id='howler-voldown'>Vol-</button>
-                    </ul>
-                    <a href="#"><i style="font-size: 2rem;color:white;padding-left:10px;margin-top:10px" class="fas fa-music"></i></a>
-                </div>
-
-            </div> -->
             <div class="col-md-6 text-end">
                 <div class="dropdown">
                     <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
