@@ -1,12 +1,7 @@
 <?php
 class AuthMod extends CI_Model
 {
-    public $nama;
-    public $username;
-    public $email;
-    public $password;
-
-    public function dbInsertUser()
+    function dbInsertUser()
     {
         $this->nama = htmlspecialchars($this->input->post('name_full', true));
         $this->username = htmlspecialchars($this->input->post('user_name', true));
