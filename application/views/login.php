@@ -50,22 +50,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <div class="col-md-1">
                 <p><?= $num++ ?></p>
               </div>
-              <div class="col-md-3">
-                <img src="<?= site_url('assets/img/profile.jpeg'); ?>" width="75px" height="75px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
+              <div class="col-md-1">
+                <img src="<?= site_url('assets/img/profile.jpeg'); ?>" width="25px" height="25px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
               </div>
-              <div class="col-md-5">
+              <div class="col-md-7">
                 <p><?= $dt->username ?></p>
-                <div class="col-md-1">
-                  <img src="<?= site_url('assets/img/profile.jpeg'); ?>" width="25px" height="25px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
-                </div>
-                <div class="col-md-7">
-                  <p><?= $dt->username ?></p>
-                </div>
-                <div class="col-md-3">
-                  <p><?= $dt->totalwaktu ?> menit</p>
-                </div>
-              <?php endforeach ?>
               </div>
+              <div class="col-md-3">
+                <p><?= $dt->totalwaktu ?> menit</p>
+              </div>
+            <?php endforeach ?>
+          </div>
         </form>
       </div>
     </div>
@@ -126,6 +121,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <input type="email" name="user_email" id="user_email" placeholder="Email" class="form-control text-center" aria-describedby="email">
               <?php echo form_error('user_email', '<small class="text-danger">', '</small>'); ?>
             </div>
+          </div>
+          <div class="mb-3">
+            <input type="password" name="user_password1" id="user_password1" placeholder="Password" class="form-control text-center">
+          </div>
+          <div class="mb-3">
+            <input type="password" name="user_password2" id="user_password2" placeholder="Confirm Password" class="form-control text-center">
+          </div>
+          <div class="mb-3 d-grid gap-2">
+            <button type="submit" class="btn btn-block btn-secondary" onclick="register_user();">Register</button>
+          </div>
+          <div class="mb-3 text-center">
+            <span>Already have an account? </span><a class="" style="color:black" data-bs-toggle="modal" href="#loginModal"><strong>Login</strong></a>
           </div>
         </form>
       </div>
@@ -203,7 +210,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
       <div class="modal-body" style="padding-left:30px;padding-right:30px">
         <div class="row" style="padding-bottom:20px">
           <div class="col-md-3">
-            <img src="<?php echo base_url() ?>assets/img/profile.jpg" width="100px" height="100px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
+            <img src="<?= site_url('assets/img/profile.jpeg'); ?>" width="100px" height="100px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
           </div>
           <div class="col-md-9">
             <h3>Lorem</h3>
@@ -213,22 +220,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
         <div class="row">
           <div class="mb-3">
             <button type="button" placeholder="Username" class="btn btn-outline-secondary" disabled>Grade A</button>
-            >>>>>>> development-ringojuicee-
           </div>
         </div>
-        <div class="mb-3">
-          <input type="password" name="user_password1" id="user_password1" placeholder="Password" class="form-control text-center">
-        </div>
-        <div class="mb-3">
-          <input type="password" name="user_password2" id="user_password2" placeholder="Confirm Password" class="form-control text-center">
-        </div>
-        <div class="mb-3 d-grid gap-2">
-          <button type="submit" class="btn btn-block btn-secondary" onclick="register_user();">Register</button>
-        </div>
-        <div class="mb-3 text-center">
-          <span>Already have an account? </span><a class="" style="color:black" data-bs-toggle="modal" href="#loginModal"><strong>Login</strong></a>
-        </div>
-
       </div>
     </div>
   </div>
