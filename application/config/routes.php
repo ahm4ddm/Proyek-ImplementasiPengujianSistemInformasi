@@ -50,6 +50,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'main';
+$route['index'] = 'main';
 $route['login'] = 'AuthCon/login';
 $route['register'] = 'AuthCon/register';
 $route['dashboard'] = 'PrivateCon/dashboard';

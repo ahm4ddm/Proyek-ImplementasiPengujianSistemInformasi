@@ -13,7 +13,11 @@ class AuthCon extends CI_Controller
 
     function index()
     {
+<<<<<<< Updated upstream
         $this->load->view('auth/v_login');
+=======
+        $this->load->view('/index');
+>>>>>>> Stashed changes
     }
 
     function login()
@@ -39,9 +43,16 @@ class AuthCon extends CI_Controller
                     echo 'password salah';
                 }
             } else {
+<<<<<<< Updated upstream
                 //$this->session->set_flashdata('message', 'username belum terdaftar');
                 echo 'username belum terdaftar';
             }
+=======
+                redirect('/index');
+            }
+        } else {
+            redirect('/index');
+>>>>>>> Stashed changes
         }
     }
 

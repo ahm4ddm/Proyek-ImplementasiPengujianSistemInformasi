@@ -21,7 +21,29 @@ class Main extends CI_Controller
 	 */
 	public function index()
 	{
+<<<<<<< Updated upstream
 		$this->load->view('main');
 		$this->load->view('login');
+=======
+		if ($this->form_validation->run() == false) {
+			$dataraw = $this->LeadMod->joins();
+			$data = array(
+				'leaderboard' => $dataraw,
+				'username' => null,
+				'totalwaktu' => null
+			);
+			$this->load->view('main', $data);
+			$this->load->view('login', $data);
+		} else {
+			$dataraw = $this->LeadMod->joins();
+			$data = array(
+				'leaderboard' => $dataraw,
+				'username' => null,
+				'totalwaktu' => null
+			);
+			$this->load->view('main', $data);
+			$this->load->view('login', $data);
+		}
+>>>>>>> Stashed changes
 	}
 }
