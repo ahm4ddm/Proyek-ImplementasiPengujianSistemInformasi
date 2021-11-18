@@ -16,19 +16,36 @@ class PomodoroConRest extends RestController
 
     public function index_post()
     {
+        $id = $usersraw = $this->session->userdata('id');
+        if ($id === null) {
+            $dataRes = [
+                'status' => false,
+                'message' => 'id tidak ditemukan, waktu gagal ditambahkan!',
+            ];
+            $this->response($dataRes, 400);
+        }
         $data = [
+            'id' => $id,
             'totalwaktu' => 25
         ];
         $this->PomodoroMod->dbInitTimer($data);
         $dataRes = [
             'status' => true,
+            'id' => $id,
             'message' => 'waktu berhasil ditambahkan!'
         ];
         $this->response($dataRes, 201);
     }
     public function index_put()
     {
-        $id = $this->put('id');
+        $id = $usersraw = $this->session->userdata('id');
+        if ($id === null) {
+            $dataRes = [
+                'status' => false,
+                'message' => 'id tidak ditemukan, waktu gagal diperbarui!',
+            ];
+            $this->response($dataRes, 400);
+        }
         $tablecon = $this->PomodoroMod->dbSelect($id);
         foreach ($tablecon as $row) {
             $row;
