@@ -10,23 +10,29 @@ class TodoConRest extends RestController
     {
         parent::__construct();
         $this->load->model('TodoMod');
+        $this->input->is_ajax_request();
+        $this->load->library('session');
+        if (!$this->input->is_ajax_request()) {
+            exit('No direct script access allowed');
+        }
     }
 
     public function index_get()
     {
-        $id = $this->get('id');
-        if ($id === null) {
-            $notes = $this->TodoMod->dbReadMod();
-        } else {
-            $notes = $this->TodoMod->dbReadMod($id);
-        }
+        $id = $this->session->userdata('id');
+        $notes = $this->TodoMod->dbReadMod($id);
         if ($notes) {
-            $this->response($notes, 200);
+?>
+            <?php foreach ($notes as $nt) { ?>
+                <li>
+                    <span class="text"><?php echo $nt['judul']; ?></span> <br>
+                    <span class="text"><?php echo $nt['catatan']; ?></span> <br>
+                    <i id="removeBtn" class="icon fa fa-trash" data-id="<?php echo $nt['id']; ?>"></i> <br>
+                <?php } ?>
+                </li>
+    <?php
         } else {
-            $this->response([
-                'status' => false,
-                'message' => 'Kosong atau tidak ditemukan!'
-            ], 404);
+            echo "<li><span class='text'>No Record Found.</span></li>";
         }
     }
 
@@ -59,23 +65,27 @@ class TodoConRest extends RestController
 
     function index_post()
     {
+        $id = $this->session->userdata('id');
         $data = [
+            'id' => $id,
             'judul' => $this->input->post('judul'),
             'catatan' => $this->input->post('catatan'),
             'status' => $this->input->post('status')
         ];
-        if ($this->TodoMod->dbCreateMod($data) > 0) {
-            $dataRes = [
-                'status' => true,
-                'message' => 'data berhasil ditambahkan!'
-            ];
-            $this->response($dataRes, 201);
+        if ($this->TodoMod->dbCreateMod($data, $id) > 0) {
+            echo 1;
+            // $dataRes = [
+            //     'status' => true,
+            //     'message' => 'data berhasil ditambahkan!'
+            // ];
+            // $this->response($dataRes, 201);
         } else {
-            $dataRes = [
-                'status' => false,
-                'message' => 'data gagal ditambahkan!'
-            ];
-            $this->response($dataRes, 400);
+            echo 0;
+            // $dataRes = [
+            //     'status' => false,
+            //     'message' => 'data gagal ditambahkan!'
+            // ];
+            // $this->response($dataRes, 400);
         }
     }
 
