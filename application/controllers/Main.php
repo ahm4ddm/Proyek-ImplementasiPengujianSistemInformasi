@@ -40,14 +40,15 @@ class Main extends CI_Controller
 			);
 			$this->load->view('main', $data);
 			$this->load->view('login', $data);
+		} else {
+			$dataraw = $this->LeadMod->joins();
+			$data = array(
+				'leaderboard' => $dataraw,
+				'username' => null,
+				'totalwaktu' => null
+			);
+			$this->load->view('main', $data);
+			$this->load->view('login', $data);
 		}
-		$dataraw = $this->LeadMod->joins();
-		$data = array(
-			'leaderboard' => $dataraw,
-			'username' => null,
-			'totalwaktu' => null
-		);
-		$this->load->view('main', $data);
-		$this->load->view('login', $data);
 	}
 }
