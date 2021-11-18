@@ -149,6 +149,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
       </div>
       <div class="modal-body" style="padding-left:30px;padding-right:30px">
         <div class="row" style="padding-bottom:20px">
+
+          <div class="inputFields">
+            <h6><?php echo $username; ?></h6>
+            <h6><?php echo $id; ?></h6>
+            <input type="hidden" id="idN" name="topic" value="<?php echo $id; ?>" />
+            <input type="text" id="taskValueJud" placeholder="Enter a title.">
+            <input type="text" id="taskValueCat" placeholder="Enter a note."> <br>
+            <button type="submit" id="addBtn" class="btn"><i class="fa fa-plus"></i></button>
+          </div>
+          <div class="content">
+            <ul id="title">
+
+            </ul>
+          </div>
+
           <div class="col-md-3">
             <img src="<?= site_url('assets/img/profile.jpeg'); ?>" width="100px" height="100px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
           </div>
@@ -179,4 +194,5 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
   <script src="/assets/js/sound_con.js"></script>
   <script src="/assets/js/pomodoro.js"></script>
+  <script src="/assets/js/note.js"></script>
   <script src="/assets/js/form_validations.js"></script>
