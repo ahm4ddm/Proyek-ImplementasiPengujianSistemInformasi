@@ -3,6 +3,7 @@
 <head>
     <title>Timer ganteng</title>
     <!-- <link rel="stylesheet" href="css/style.css"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <style>
         body {
@@ -56,7 +57,7 @@
                             <p>A</p>
                         </li>
                         <li><a class="dropdown-item" data-bs-toggle="modal" href="#profileModal">Profile</a></li>
-                        <li><a class="dropdown-item">Activity</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" href="#activityModal">Activity</a></li>
                         <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     </ul>
                 <?php } ?>
@@ -67,20 +68,19 @@
                         Select Your Music
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" id="satu" href="#">Sound 01 <button class="fas fa-play-circle" id='howler-play1'></button></a></li>
-                        <li><a class="dropdown-item" id="dua" href="#">Sound 02 <button class="fas fa-play-circle" id='howler-play2'></button></a></li>
-                        <li><a class="dropdown-item" id="tiga" href="#">Sound 03 <button class="fas fa-play-circle" id='howler-play3'></button></a></li>
-                        <li><a class="dropdown-item" id="empat" href="#">Sound 04 <button class="fas fa-play-circle" id='howler-play4'></button></a></li>
-                        <li><a class="dropdown-item" id="lima" href="#">Sound 05 <button class="fas fa-play-circle" id='howler-play5'></button></a></li>
+                        <li><button style="background-color: #ffffff;border: none;" class="btn btn-light btn-lg btn-block" id='howler-play1'><a class="dropdown-item music-now" id="lima">Sound 01</button></a></li>
+                        <li><button style="background-color: #ffffff;border: none;" class="btn btn-light btn-lg btn-block" id='howler-play2'><a class="dropdown-item music-now" id="lima">Sound 02</button></a></li>
+                        <li><button style="background-color: #ffffff;border: none;" class="btn btn-light btn-lg btn-block" id='howler-play3'><a class="dropdown-item music-now" id="lima">Sound 03</button></a></li>
+                        <li><button style="background-color: #ffffff;border: none;" class="btn btn-light btn-lg btn-block" id='howler-play4'><a class="dropdown-item music-now" id="lima">Sound 04</button></a></li>
+                        <li><button style="background-color: #ffffff;border: none;" class="btn btn-light btn-lg btn-block" id='howler-play5'><a class="dropdown-item music-now" id="lima">Sound 05</button></a></li>
                     </ul>
-                    <a href="#"><button class="fas fa-stop-circle" id='howler-stop'></button></a>
-                    <a href="#"><i style="font-size: 2rem;color:white;padding-left:10px;margin-top:10px" class="fas fa-music"></i></a>
+                    <a href="#"><i style="font-size: 2rem;color:white;padding-left:10px;margin-top:10px" id='howler-stop' class="fas fa-music"></i></a>
                 </div>
 
             </div>
         </div>
         <div class="row" style="min-height:85%;">
-            <div class="col-md-12 d-flex flex-column  justify-content-center align-items-center">
+            <div class="col-md-12 d-flex flex-column justify-content-center align-items-center">
                 <h1 style="font-size:13em;letter-spacing: -10px;font-weight:800" class="text-light" id="time">1</h1>
             </div>
         </div>
@@ -95,7 +95,7 @@
                 <a href="#" id="segar"><i class="fas fa-redo-alt" style="font-size: 2rem;color:white;padding-left:20px;padding-right:20px;"></i></a>
             </div>
             <div class="col-md-4 text-end">
-                <a href="#"> <i class="fas fa-plus" style="font-size: 2rem;color:white"></i></a>
+                <a href="#"> <i class="fas fa-plus" data-bs-toggle="modal" data-bs-target="#todolistModal" style="font-size: 2rem;color:white"></i></a>
             </div>
         </div>
     </div>
