@@ -72,20 +72,10 @@ class TodoConRest extends RestController
             'catatan' => $this->input->post('catatan'),
             'status' => $this->input->post('status')
         ];
-        if ($this->TodoMod->dbCreateMod($data, $id) > 0) {
+        if ($this->TodoMod->dbCreateMod($data) > 0) {
             echo 1;
-            // $dataRes = [
-            //     'status' => true,
-            //     'message' => 'data berhasil ditambahkan!'
-            // ];
-            // $this->response($dataRes, 201);
         } else {
             echo 0;
-            // $dataRes = [
-            //     'status' => false,
-            //     'message' => 'data gagal ditambahkan!'
-            // ];
-            // $this->response($dataRes, 400);
         }
     }
 
