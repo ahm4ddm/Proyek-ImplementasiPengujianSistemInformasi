@@ -11,31 +11,30 @@ class PomodoroConRest extends RestController
     public function __construct()
     {
         parent::__construct();
+        $this->load->library('session');
         $this->load->model('PomodoroMod');
+        if (!$this->input->is_ajax_request()) {
+            exit('No direct script access allowed');
+        }
     }
 
     public function index_post()
     {
-        $id = $usersraw = $this->session->userdata('id');
-        if ($id === null) {
-            $dataRes = [
-                'status' => false,
-                'message' => 'id tidak ditemukan, waktu gagal ditambahkan!',
+        $id = $this->session->userdata('id');
+        if ($id !== null) {
+            $data = [
+                'totalwaktu' => 25,
+                'tmpwaktu' => 25,
+                'id_user' => $id,
             ];
-            $this->response($dataRes, 400);
+            $this->PomodoroMod->dbInitTime($data);
+            echo true;
+        } else {
+            echo 0;
         }
-        $data = [
-            'id' => $id,
-            'totalwaktu' => 25
-        ];
-        $this->PomodoroMod->dbInitTimer($data);
-        $dataRes = [
-            'status' => true,
-            'id' => $id,
-            'message' => 'waktu berhasil ditambahkan!'
-        ];
-        $this->response($dataRes, 201);
     }
+
+
     public function index_put()
     {
         $id = $usersraw = $this->session->userdata('id');
@@ -46,7 +45,7 @@ class PomodoroConRest extends RestController
             ];
             $this->response($dataRes, 400);
         }
-        $tablecon = $this->PomodoroMod->dbSelect($id);
+        $tablecon = $this->PomodoroMod->dbSelectTotalTime($id);
         foreach ($tablecon as $row) {
             $row;
         }
