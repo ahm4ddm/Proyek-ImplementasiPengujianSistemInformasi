@@ -1,27 +1,10 @@
 $(document).ready(function () {
-    // Show Tasks // insert
-    // function loadTasks() {
-    // 	$.ajax({
-    // 		url: "/todo",
-    // 		type: "POST",
-    // 		dataType: "json",
-    // 		data: {
-    // 			judul: "COK",
-    // 			catatan: "NGEN",
-    // 			status: 0
-    // 		},
-    // 		success: function(data) {
-    // 			$("#tasks").html(data);
-    // 		}
-    // 	});
-    // }
-    // loadTasks();
-
+    // Get Task
     function loadTasks() {
         $.ajax({
             url: "/todo",
             success: function (data) {
-                $('#title').html(data);
+                $('#note').html(data);
             }
         });
     }
@@ -31,25 +14,21 @@ $(document).ready(function () {
     $("#addBtn").on("click", function (e) {
         e.preventDefault();
 
-        let taskJ = $("#taskValueJud").val();
-        let taskC = $("#taskValueCat").val();
+        let note = $("#Catatan").val();
         let Idn = $("#Idn").val();
 
         $.ajax({
             url: "/todo",
             type: "POST",
             data: {
-                'id': Idn,
-                'judul': taskJ,
-                'catatan': taskC,
-                'status': 0
+                'catatan': note,
+                'id_user': Idn,
             },
             success: function (data) {
                 loadTasks();
-                $("#taskValueJud").val('');
-                $("#taskValueCat").val('');
+                $("#Catatan").val('');
                 if (data == 0) {
-                    alert("Something wrong went. Please try again.");
+                    alert("Wrong input! Please try again.");
                 }
             }
         });
@@ -58,18 +37,39 @@ $(document).ready(function () {
     // Remove Task
     $(document).on("click", "#removeBtn", function (e) {
         e.preventDefault();
-        var id = $(this).data('id');
-
+        let id = $(this).data('id');
         $.ajax({
             url: "/todo",
-            type: "POST",
+            type: "DELETE",
             data: {
                 id: id
             },
             success: function (data) {
                 loadTasks();
                 if (data == 0) {
-                    alert("Something wrong went. Please try again.");
+                    alert("Something wrong. Please try again.");
+                }
+            }
+        });
+    });
+
+    //Update Task
+    $(document).on("click", "#updateBtn", function (e) {
+        e.preventDefault();
+
+        let id = $(this).data('id');
+        $.ajax({
+            url: "/todo",
+            type: "PUT",
+            data: {
+                'id': id,
+                'status': 'yes'
+            },
+            success: function (data) {
+                loadTasks();
+                $("#Catatan")
+                if (data == 0) {
+                    alert("Something wrong. Please try again.");
                 }
             }
         });

@@ -29,25 +29,30 @@ $(function () {
         loop: !0,
         html5: !0
       });
-  $("#howler-play1").on("change", function () {
+  $("#howler-play1").on("click", function () {
     o.stop(), t.stop(), s.stop(), p.stop(), l.stop(), o.play(),
       $("#howler-stop").attr('class', 'fas fa-music');
-  }), $("#howler-play2").on("click", function () {
-    o.stop(), t.stop(), s.stop(), p.stop(), l.stop(), t.play(),
-      $("#howler-stop").attr('class', 'fas fa-music');
-  }), $("#howler-play3").on("click", function () {
-    o.stop(), t.stop(), s.stop(), p.stop(), l.stop(), s.play(),
-      $("#howler-stop").attr('class', 'fas fa-music');
-  }), $("#howler-play4").on("click", function () {
-    o.stop(), t.stop(), s.stop(), p.stop(), l.stop(), p.play(),
-      $("#howler-stop").attr('class', 'fas fa-music');
-  }), $("#howler-play5").on("click", function () {
-    o.stop(), t.stop(), s.stop(), p.stop(), l.stop(), l.play(),
-      $("#howler-stop").attr('class', 'fas fa-music');
-  }), $("#howler-stop").on("click", function () {
-    o.stop(), t.stop(), s.stop(), p.stop(), l.stop(),
-      $("#howler-stop").attr('class', 'fas fa-stop-circle');
-  })
+  }),
+    $("#howler-play2").on("click", function () {
+      o.stop(), t.stop(), s.stop(), p.stop(), l.stop(), t.play(),
+        $("#howler-stop").attr('class', 'fas fa-music');
+    }),
+    $("#howler-play3").on("click", function () {
+      o.stop(), t.stop(), s.stop(), p.stop(), l.stop(), s.play(),
+        $("#howler-stop").attr('class', 'fas fa-music');
+    }),
+    $("#howler-play4").on("click", function () {
+      o.stop(), t.stop(), s.stop(), p.stop(), l.stop(), p.play(),
+        $("#howler-stop").attr('class', 'fas fa-music');
+    }),
+    $("#howler-play5").on("click", function () {
+      o.stop(), t.stop(), s.stop(), p.stop(), l.stop(), l.play(),
+        $("#howler-stop").attr('class', 'fas fa-music');
+    }),
+    $("#howler-stop").on("click", function () {
+      o.stop(), t.stop(), s.stop(), p.stop(), l.stop(),
+        $("#howler-stop").attr('class', 'fas fa-stop-circle');
+    })
 }), $(".music-now").click(function () {
   $("#dropdownMenuLink").html($(this).text());
 });
