@@ -35,8 +35,10 @@ class Main extends CI_Controller
 			$dataraw = $this->LeadMod->joins();
 			$data = array(
 				'leaderboard' => $dataraw,
+				'id' => null,
 				'username' => null,
-				'totalwaktu' => null
+				'totalwaktu' => null,
+				'user_time_act' => null,
 			);
 			$this->load->view('main', $data);
 			$this->load->view('login', $data);
@@ -45,7 +47,9 @@ class Main extends CI_Controller
 			$data = array(
 				'leaderboard' => $dataraw,
 				'username' => null,
-				'totalwaktu' => null
+				'id' => null,
+				'totalwaktu' => null,
+				'user_time_act' => null,
 			);
 			$this->load->view('main', $data);
 			$this->load->view('login', $data);
