@@ -4,12 +4,12 @@ class PomodoroMod extends CI_Model
     public $waktu;
     public $totalwaktu;
 
-    public function dbInitTimer($data)
+    public function dbInitTime($data)
     {
         return $this->db->insert('pomodoros', $data);
     }
 
-    public function dbSelect($id)
+    public function dbSelectTotalTime($id)
     {
         //$query = $this->db->select('totalwaktu')->get_where('pomodoros', ['id' => $id]);
         $this->db->select('totalwaktu');
@@ -20,5 +20,12 @@ class PomodoroMod extends CI_Model
     public function dbUpdateTimer($data, $id)
     {
         return $this->db->update('pomodoros', $data, ['id' => $id]);
+    }
+
+    public function dbSelectTimeUser($id)
+    {
+        $this->db->select('tmpwaktu');
+        $query = $this->db->get_where('pomodoros', ['id' => $id])->result_array();
+        return $query;
     }
 }
