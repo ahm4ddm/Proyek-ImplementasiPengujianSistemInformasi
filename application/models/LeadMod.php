@@ -1,13 +1,11 @@
 <?php
 class LeadMod extends CI_Model
 {
-
-    public function joins()
+    public function getLeaderboard()
     {
-        $this->db->select(['username', 'totalwaktu']);
-        $this->db->from('users');
-        $this->db->join('pomodoros', 'users.id = pomodoros.id');
-        $query = $this->db->order_by('totalwaktu', 'DESC')->get()->result();
-        return $query;
+        $this->db->start_cache();
+        $this->db->select('username')->from('users')->get()->result();
+        $this->db->stop_cache();
+        return  $this->db->select('id_user')->select_sum('totalwaktu')->from('pomodoros')->get()->result();
     }
 }
