@@ -6,28 +6,24 @@ class TodoMod extends CI_Model
     public $waktu;
     public $status;
 
-    public function dbReadMod($id = null)
+    public function getTodo($id)
     {
-        if ($id === null) {
-            return $this->db->get('todos')->result_array();
-        } else {
-            return $this->db->get_where('todos', ['id' => $id])->result_array();
-        }
+        return $this->db->get_where('todos', ['id_user' => $id])->result_array();
     }
 
-    public function dbCreateMod($data)
+    public function addTodo($data)
     {
         $this->db->insert('todos', $data);
         return $this->db->affected_rows();
     }
 
-    public function dbDeleteMod($id)
+    public function delTodo($id)
     {
         $this->db->delete('todos', ['id' => $id]);
         return $this->db->affected_rows();
     }
 
-    public function dbUpdateMod($data, $id)
+    public function updTodo($data, $id)
     {
         $this->db->update('todos', $data, ['id' => $id]);
         return $this->db->affected_rows();
