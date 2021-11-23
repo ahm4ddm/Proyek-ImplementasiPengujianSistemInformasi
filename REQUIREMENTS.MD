@@ -14,5 +14,5 @@
 |12| Sistem dapat mengedit to do list|V|V|V|
 |13| Sistem dapat menghapus to do list|V|V|V|
 |14| Sistem dapat menampilkan profil pengguna|V|V|V|
-|15| Sistem dapat menampilkan pencapaian pengguna||V|V|
+|15| Sistem dapat menampilkan pencapaian pengguna|V|V|V|
 |16| Sistem dapat menampilkan leaderboard|V|V|V|
