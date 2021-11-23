@@ -32,24 +32,26 @@ class Main extends CI_Controller
 	public function index()
 	{
 		if ($this->form_validation->run() == false) {
-			$dataraw = $this->LeadMod->joins();
+			$dataraw = $this->LeadMod->getLeaderboard();
 			$data = array(
 				'leaderboard' => $dataraw,
 				'id' => null,
 				'username' => null,
 				'totalwaktu' => null,
 				'user_time_act' => null,
+				'achievement' => null,
 			);
 			$this->load->view('main', $data);
 			$this->load->view('login', $data);
 		} else {
-			$dataraw = $this->LeadMod->joins();
+			$dataraw = $this->LeadMod->getLeaderboard();
 			$data = array(
 				'leaderboard' => $dataraw,
 				'username' => null,
 				'id' => null,
 				'totalwaktu' => null,
 				'user_time_act' => null,
+				'achievement' => null,
 			);
 			$this->load->view('main', $data);
 			$this->load->view('login', $data);
