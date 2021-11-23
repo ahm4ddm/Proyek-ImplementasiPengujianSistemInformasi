@@ -1,7 +1,8 @@
 $(document).ready(function () {
-  let minutes = 0.05,
+  let minutes = 25,
     isPaused = !1,
     timerId = 0;
+
   function startTimer(e, i) {
     let t, s, n = e;
     timerId = setInterval(function () {
@@ -10,14 +11,58 @@ $(document).ready(function () {
         t = t < 10 ? "0" + t : t,
         s = s < 10 ? "0" + s : s,
         i.text(t + ":" + s)
-        , --n < 0 && (n = e, $("#stop").hide(), $("#resume").hide())
+        , --n < 0 && (n = e, $("#stop").hide(), $("#resume").hide(),
+          checkTime())
       )
     }, 1e3)
   }
 
-  function startPomodoro(e) {
-    startTimer(60 * e, $("#time"))
+  function breakTime(e, i) {
+    let t, s, n = e;
+    timerId = setInterval(function () {
+      isPaused || (t = parseInt(n / 60, 10),
+        s = parseInt(n % 60, 10),
+        t = t < 10 ? "0" + t : t,
+        s = s < 10 ? "0" + s : s,
+        i.text(t + ":" + s)
+        , --n < 0 && (n = e, $("#stop").hide(), $("#resume").hide(),
+          checkTimeBreak())
+      )
+    }, 1e3)
+  }
 
+  function checkTimeBreak() {
+    if ($("#time").text() == "00:00") {
+      alert('Now pomodoro start again...');
+      clearInterval(timerId);
+      history.go(0);
+      minutes = 5;
+      startPomodoro(minutes);
+    }
+  }
+
+  function checkTime() {
+    if ($("#time").text() == "00:00") {
+      alert('Time over...');
+      $.ajax({
+        url: "/pomodoro",
+        type: "POST",
+      });
+      isPaused = !isPaused;
+      clearInterval(timerId);
+      doRest();
+    }
+  }
+
+  function doRest() {
+    alert('Now take a short break...');
+    minutes = 5;
+    isPaused = !1;
+    breakTime(60 * 1, $("#time"));
+  }
+
+  function startPomodoro(e) {
+    startTimer(60 * e, $("#time"));
   }
   $("#time").text(minutes),
     $("#berhenti").hide(),
@@ -43,10 +88,3 @@ $(document).ready(function () {
         $("#time").text(minutes)
     });
 });
-if (minutes == 1) {
-  $.ajax({
-    url: "/pomodoro",
-    type: "POST",
-  });
-}
-
