@@ -38,8 +38,8 @@ class Main extends CI_Controller
 				'id' => null,
 				'username' => null,
 				'totalwaktu' => null,
-				'user_time_act' => null,
 				'achievement' => null,
+				'user_time_act' => null,
 			);
 			$this->load->view('main', $data);
 			$this->load->view('login', $data);
@@ -50,8 +50,8 @@ class Main extends CI_Controller
 				'username' => null,
 				'id' => null,
 				'totalwaktu' => null,
-				'user_time_act' => null,
 				'achievement' => null,
+				'user_time_act' => null,
 			);
 			$this->load->view('main', $data);
 			$this->load->view('login', $data);
