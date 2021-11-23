@@ -23,17 +23,34 @@ class UserCon extends CI_Controller
         $uname = $this->input->post('user_name');
         $pass = $this->input->post('password');
         $user = $this->db->get_where('users', ['username' => $uname])->row_array();
-        $this->session->unset_userdata('reg_suc');
         $this->session->unset_userdata('fail_login');
+        $this->session->unset_userdata('gene_login_val');
+        $this->session->unset_userdata('reg_suc');
         $fail_login_val = '
         <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
            <div class="modal-header">
               <h5 class="modal-title" ><?php echo $username; ?>Login Failed</h5>
-              <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+              <a href="/logout"><button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button></a>
            </div>
            <div class="modal-body text-center">
               <p>Please enter the correct password.</p>
+              <div class="mb-3 d-grid gap-2">
+                 <button type="submit" class="btn btn-block btn-secondary" data-bs-toggle="modal" href="#loginModal">Login</button>
+              </div>
+           </div>
+        </div>
+        </div>
+        ';
+        $gene_login_val = '
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h5 class="modal-title" ><?php echo $username; ?>Login Failed</h5>
+              <a href="/logout"><button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button></a>
+           </div>
+           <div class="modal-body text-center">
+              <p>Somthing went wrong. Please login again</p>
               <div class="mb-3 d-grid gap-2">
                  <button type="submit" class="btn btn-block btn-secondary" data-bs-toggle="modal" href="#loginModal">Login</button>
               </div>
@@ -94,14 +111,11 @@ class UserCon extends CI_Controller
                 $this->load->view('main', $data);
                 $this->load->view('login', $data);
             } else {
-                $this->session->set_flashdata(
-                    'fail_login',
-
-                );
+                $this->session->set_flashdata('fail_login', $fail_login_val);
                 redirect('main');
             }
         } else {
-            $this->session->set_flashdata('fail_login', $fail_login_val);
+            $this->session->set_flashdata('gene_login_val', $gene_login_val);
             redirect('main');
         }
     }
@@ -111,6 +125,7 @@ class UserCon extends CI_Controller
         $this->session->unset_userdata('id');
         $this->session->unset_userdata('username');
         $this->session->unset_userdata('fail_login');
+        $this->session->unset_userdata('gene_login_val');
         $this->session->unset_userdata('reg_suc');
         redirect('/main');
     }
@@ -120,12 +135,13 @@ class UserCon extends CI_Controller
         $this->form_validation->set_rules('user_nameR', 'Username', 'required|trim|is_unique[users.username]');
         $this->form_validation->set_rules('user_email', 'Email', 'required|is_unique[users.email]');
         $this->session->unset_userdata('fail_login');
+        $this->session->unset_userdata('gene_login_val');
         $reg_suc_val = '
         <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
            <div class="modal-header">
               <h5 class="modal-title" ><?php echo $username; ?>Register Complete</h5>
-              <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+              <a href="/logout"><button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button></a>
            </div>
            <div class="modal-body text-center">
               <p>Register complete, now you can login with the account.</p>
@@ -137,12 +153,10 @@ class UserCon extends CI_Controller
         </div>
         ';
         if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('reg_suc', $reg_suc_val);
-
             redirect('main', 'refresh');
         } else {
             $this->session->set_flashdata('reg_suc', $reg_suc_val);
-            //$this->UserMod->addUser();
+            $this->UserMod->addUser();
             redirect('main');
         }
     }
