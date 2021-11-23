@@ -23,8 +23,8 @@ class UserCon extends CI_Controller
         $uname = $this->input->post('user_name');
         $pass = $this->input->post('password');
         $user = $this->db->get_where('users', ['username' => $uname])->row_array();
-        $this->session->unset_userdata('fail_login');
         $this->session->unset_userdata('reg_suc');
+        $this->session->unset_userdata('fail_login');
         $fail_login_val = '
         <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
