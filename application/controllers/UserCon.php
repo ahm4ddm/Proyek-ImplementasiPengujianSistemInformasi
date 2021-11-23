@@ -50,7 +50,7 @@ class UserCon extends CI_Controller
               <a href="/logout"><button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button></a>
            </div>
            <div class="modal-body text-center">
-              <p>Somthing went wrong. Please login again</p>
+              <p>Something went wrong. Please login again</p>
               <div class="mb-3 d-grid gap-2">
                  <button type="submit" class="btn btn-block btn-secondary" data-bs-toggle="modal" href="#loginModal">Login</button>
               </div>
