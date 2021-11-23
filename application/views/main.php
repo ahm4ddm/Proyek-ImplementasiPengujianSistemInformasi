@@ -36,6 +36,9 @@
     </style>
 </head>
 
+<?php echo $this->session->flashdata('fail_login'); ?>
+<?php echo $this->session->flashdata('reg_suc'); ?>
+
 <body>
     <div class="container-fluid">
         <div class="row">
@@ -53,8 +56,7 @@
                     </button>
                     <ul class="dropdown-menu text-center" aria-labelledby="menuDropdown">
                         <li>
-                            <h3>Great!</h3>
-                            <p>A</p>
+                            <p><strong>Have a great day</strong></p>
                         </li>
                         <li><a class="dropdown-item" data-bs-toggle="modal" href="#profileModal">Profile</a></li>
                         <li><a class="dropdown-item" data-bs-toggle="modal" href="#activityModal">Activity</a></li>
