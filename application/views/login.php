@@ -194,6 +194,42 @@ defined('BASEPATH') or exit('No direct script access allowed');
   </div>
 </div>
 
+<!-- Error Modal -->
+<div class="modal fade" id="loginFailed" tabindex="-1" aria-labelledby="error1Modal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title" ><?php echo $username; ?>Login Failed</h5>
+        <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p>Please enter the correct password.</p>
+        <div class="mb-3 d-grid gap-2">
+            <button type="submit" class="btn btn-block btn-secondary" data-bs-toggle="modal" href="#loginModal">Login</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title" ><?php echo $username; ?>Register Complete</h5>
+        <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p>Register complete, now you can login with the account.</p>
+        <div class="mb-3 d-grid gap-2">
+            <button type="submit" class="btn btn-block btn-secondary" data-bs-toggle="modal" href="#loginModal">Login</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- To Do List Modal -->
 <div class="modal fade" id="todolistModal" tabindex="-1" aria-labelledby="todolistModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -351,6 +387,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
         });
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         //Reset button
         $("#segar").on("click", function () {
             $("#berhenti").hide();
@@ -370,4 +407,26 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <script src="<?= site_url() ?>/assets/js/sound_con.js"></script>
   <script src="<?= site_url() ?>/assets/js/pomodoro.js"></script>
   <script src="<?= site_url() ?>/assets/js/form_validations.js"></script>
+>>>>>>> Stashed changes
+=======
+<script src="https://kit.fontawesome.com/ac17403586.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
+<script src="<?= base_url() ?>assets/js/sound_con.js"></script>
+<script src="<?= base_url() ?>assets/js/pomodoro.js"></script>
+<script src="<?= base_url() ?>assets/js/note.js"></script>
+<script src="<?= base_url() ?>assets/js/form_validations.js"></script>
+<script>
+  
+var myModal = new bootstrap.Modal(document.getElementById("errorModal"), {});
+document.onreadystatechange = function () {
+  if("<?= (($this->session->userdata('id'))) ?>" != '1'){
+   myModal.toggle();
+  };
+};
+  
+</script>
 >>>>>>> Stashed changes

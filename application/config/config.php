@@ -24,9 +24,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |
 */
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 $config['base_url'] = '';
 =======
 $config['base_url'] = 'http://localhost/IPSI/Proyek-ImplementasiPengujianSistemInformasi';
+>>>>>>> Stashed changes
+=======
+$config['base_url'] = 'http://localhost/IPSI/Proyek-ImplementasiPengujianSistemInformasi/';
 >>>>>>> Stashed changes
 
 /*
