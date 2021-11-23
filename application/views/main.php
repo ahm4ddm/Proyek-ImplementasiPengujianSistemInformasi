@@ -36,8 +36,8 @@
     </style>
 </head>
 
-<?php echo $this->session->flashdata('fail_login'); ?>
 <?php echo $this->session->flashdata('gene_login_val'); ?>
+<?php echo $this->session->flashdata('fail_login'); ?>
 <?php echo $this->session->flashdata('reg_suc'); ?>
 
 <body>
