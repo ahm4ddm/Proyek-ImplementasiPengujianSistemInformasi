@@ -1,16 +1,14 @@
 <?php
 
-defined('BASEPATH') or exit('No direct script access allowed');
-
 use chriskacerguis\RestServer\RestController;
 
+defined('BASEPATH') or exit('No direct script access allowed');
 class TodoConRest extends RestController
 {
     public function __construct()
     {
         parent::__construct();
         $this->load->model('TodoMod');
-        $this->input->is_ajax_request();
         $this->load->library('session');
         if (!$this->input->is_ajax_request()) {
             exit('No direct script access allowed');
@@ -20,46 +18,46 @@ class TodoConRest extends RestController
     public function index_get()
     {
         $id = $this->session->userdata('id');
-        $notes = $this->TodoMod->dbReadMod($id);
+        $notes = $this->TodoMod->getTodo($id);
         if ($notes) {
 ?>
             <?php foreach ($notes as $nt) { ?>
-                <li>
-                    <span class="text"><?php echo $nt['judul']; ?></span> <br>
-                    <span class="text"><?php echo $nt['catatan']; ?></span> <br>
-                    <i id="removeBtn" class="icon fa fa-trash" data-id="<?php echo $nt['id']; ?>"></i> <br>
-                <?php } ?>
-                </li>
-    <?php
+                <div>
+                    <li>
+                        <span id="editNote">
+                            <?php if ($nt['status'] == 'yes') {
+                            ?>
+                                <span><del><?php echo $nt['catatan']; ?></del></span>
+                                <div class="todolistButton" class="ml-auto">
+                                    <i id="removeBtn" class="fas fa-trash" class="float-right" style="font-size: 1rem;color:black" data-id="<?php echo $nt['id']; ?>"></i>
+                                </div>
+                            <?php } else if ($nt['status'] == 'do') {
+                                echo $nt['catatan'];
+                            ?>
+                                <div class="todolistButton" class="ml-auto">
+                                    <i id="updateBtn" class="fas fa-check-square" class="float-right" style="font-size: 1rem;color:black" data-id="<?php echo $nt['id']; ?>"></i>
+                                    <i id="removeBtn" class="fas fa-trash" class="float-right" style="font-size: 1rem;color:black" data-id="<?php echo $nt['id']; ?>"></i>
+                                </div>
+                            <?php
+                            }
+                            ?>
+                        </span>
+                    </li>
+                </div>
+            <?php } ?>
+<?php
         } else {
-            echo "<li><span class='text'>No Record Found.</span></li>";
+            echo "<span class='text'><h2 style='text-align:center'><strong>No record found!</strong></h2></span>";
         }
     }
 
     public function index_delete()
     {
         $id = $this->delete('id');
-        if ($id === null) {
-            $this->response([
-                'status' => false,
-                'message' => 'Data tidak ditemukan, gagal dihapus!'
-            ], 400);
+        if ($this->TodoMod->delTodo($id) > 0) {
+            echo 1;
         } else {
-            if ($this->TodoMod->dbDeleteMod($id) > 0) {
-                $data = [
-                    'status' => true,
-                    'id' => $id,
-                    'message' => 'data berhasil dihapus!'
-                ];
-                $this->response($data, 202);
-            } else {
-                $data = [
-                    'status' => false,
-                    'id' => $id,
-                    'message' => 'Id tidak ditemukan, gagal dihapus!'
-                ];
-                $this->response($data, 400);
-            }
+            echo 0;
         }
     }
 
@@ -67,39 +65,25 @@ class TodoConRest extends RestController
     {
         $id = $this->session->userdata('id');
         $data = [
-            'id' => $id,
-            'judul' => $this->input->post('judul'),
             'catatan' => $this->input->post('catatan'),
-            'status' => $this->input->post('status')
+            'id_user' => $id,
         ];
-        if ($this->TodoMod->dbCreateMod($data) > 0) {
-            echo 1;
-        } else {
+        if ($this->input->post('catatan') === null) {
             echo 0;
+        }
+        if ($this->TodoMod->addTodo($data) > 0) {
+            echo 1;
         }
     }
 
     function index_put()
     {
-        $id = $this->put('id');
+        $id_note = $this->put('id');
         $data = [
-            'judul' => $this->put('judul'),
-            'catatan' => $this->put('catatan'),
-            'waktu' => date('Y-m-d H:i:s'),
-            'status' => $this->put('status')
+            'status' => 'yes'
         ];
-        if ($this->TodoMod->dbUpdateMod($data, $id) > 0) {
-            $dataRes = [
-                'status' => true,
-                'message' => 'data berhasil diubah!'
-            ];
-            $this->response($dataRes, 201);
-        } else {
-            $dataRes = [
-                'status' => false,
-                'message' => 'data gagal diupdate!'
-            ];
-            $this->response($dataRes, 400);
+        if ($this->TodoMod->updTodo($data, $id_note)) {
+            echo 1;
         }
     }
 }
