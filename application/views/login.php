@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 ?>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
@@ -73,6 +74,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Login</h5>
+        <input type="hidden" id="idN" name="topic" value="<?php echo $id; ?>" />
         <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -84,9 +86,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <input type="password" name="password" id="password" placeholder="Password" class="form-control text-center">
           </div>
           <div class="mb-3 d-grid gap-2">
-            <button type="submit" class="btn btn-block btn-secondary">Login</button>
-          </div>
-          <div class="form-group">
+            <button id="login_submit" type="submit" class="btn btn-block btn-secondary">Login</button>
           </div>
           <div class="mb-3 text-center">
             <span>Don't have account yet? </span><a class="" data-bs-toggle="modal" style="color:black" href="#registerModal"><strong>Register</strong></a>
@@ -149,10 +149,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
       </div>
       <div class="modal-body text-center">
         <img src="<?= site_url('assets/img/profile.jpeg'); ?>" width="100px" height="100px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
-        <h3><?php echo $username; ?>aaaa</h3>
+        <h3><?php echo $username; ?></h3>
         <br>
         <p>You Spend</p>
-        <h3><strong># Hours</strong></h3>
+        <h3><strong><?php if ($user_time_act === null) {
+                      $user_time_act = "less";
+                    } else if ($user_time_act < 1) {
+                      $user_time_act = "less";
+                    } else if ($user_time_act == 0) {
+                      $user_time_act = "less";
+                    }
+                    print(($user_time_act)); ?> Hours</strong></h3>
         <p style="margin-bottom:80px">In a week</p>
       </div>
     </div>
@@ -167,33 +174,32 @@ defined('BASEPATH') or exit('No direct script access allowed');
         <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
-          <div class="row">
-            <div class="col-md-10">
-              <input type="email" style="padding-left:30px;padding-top:10px;padding-bottom:10px" class="form-control" id="Catatan" placeholder="Type the things that you want to do...">
+        <?php
+        if (($id) !== null) { ?>
+          <form>
+            <input type="hidden" id="idN" name="topic" value="<?php echo $id; ?>" />
+            <div class="row">
+              <div class="col-md-10">
+                <input type="text" style="padding-left:30px;padding-top:10px;padding-bottom:10px" class="form-control" id="Catatan" placeholder="Type the things that you want to do...">
+              </div>
+              <div class="col-md-1">
+                <button type="button" class="btn btn-outline-secondary btn-lg btn-block align-middle" style="margin-top:2px" id="addBtn"><i class="fas fa-plus"></i></button>
+              </div>
             </div>
-            <div class="col-md-1">
-              <button type="button" class="btn btn-outline-secondary btn-lg btn-block align-middle" style="margin-top:2px"><i class="fas fa-plus"></i></button>
-            </div>
-          </div>
-        </form>
+          </form>
 
-        <div class="card w-100 p-3" style="width: 18rem;">
-          <div class="card-body">
-            <input type="checkbox"> AAAA </input>
-            <div class="todolistButton" class="ml-auto">
-              <a href="#"><i class="fas fa-edit" class="float-right" style="font-size: 1rem;color:black"></i></a>
-              <a href="#"><i class="fas fa-trash" class="float-right" style="font-size: 1rem;color:black"></i></a>
+          <div class="card w-100 p-3" style="width: 18rem;">
+            <div class="card-body">
+              <ul id="note">
+
+              </ul>
             </div>
           </div>
-          <div class="card-body">
-            <input type="checkbox"> AAAA </input>
-            <div class="todolistButton" class="ml-auto">
-              <a href="#"><i class="fas fa-edit" class="float-right" style="font-size: 1rem;color:black"></i></a>
-              <a href="#"><i class="fas fa-trash" class="float-right" style="font-size: 1rem;color:black"></i></a>
-            </div>
-          </div>
-        </div>
+        <?php
+        } else { ?>
+        <?php
+          echo "<h4 style='text-align: center;'> Please login first to use the feature!</h4>";
+        } ?>
       </div>
     </div>
   </div>
@@ -213,22 +219,23 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <img src="<?= site_url('assets/img/profile.jpeg'); ?>" width="100px" height="100px" style="border-radius:50%;object-fit: cover;" alt="profile picture">
           </div>
           <div class="col-md-9">
-            <h3>Lorem</h3>
-            <p>aaaaaaaaa</p>
+            <h3><?php echo $username; ?></h3>
+            <?php if ($totalwaktu == 0) {
+              echo "Sorry! Use the pomodoro to appear";
+            } else {
+              echo $totalwaktu . " menit";
+            }; ?>
           </div>
         </div>
         <div class="row">
           <div class="mb-3">
-            <button type="button" placeholder="Username" class="btn btn-outline-secondary" disabled>Grade A</button>
+            <button type="button" placeholder="Username" class="btn btn-outline-secondary" disabled><?php echo $achievement ?></button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
-
 
 <script src="https://kit.fontawesome.com/ac17403586.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -240,3 +247,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <script src="/assets/js/pomodoro.js"></script>
 <script src="/assets/js/note.js"></script>
 <script src="/assets/js/form_validations.js"></script>
+<script>
+  $('form input').on('keypress', function(e) {
+    return e.which !== 13;
+  });
+</script>
