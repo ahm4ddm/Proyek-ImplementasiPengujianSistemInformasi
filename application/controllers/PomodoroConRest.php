@@ -1,10 +1,8 @@
 <?php
 
-use chriskacerguis\RestServer\RestController;
-use Faker\Core\Number;
-use phpDocumentor\Reflection\Types\Integer;
-
 defined('BASEPATH') or exit('No direct script access allowed');
+
+use chriskacerguis\RestServer\RestController;
 
 class PomodoroConRest extends RestController
 {
