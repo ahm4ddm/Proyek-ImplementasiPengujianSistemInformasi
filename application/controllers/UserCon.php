@@ -95,7 +95,7 @@ class UserCon extends CI_Controller
                 }
 
                 foreach ($datatmp as $ds) {
-                    $dss = intval($ds);
+                    $dss = intval($ds / 60);
                 }
 
                 $data = array(
