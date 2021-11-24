@@ -1,8 +1,8 @@
 <?php
+defined('BASEPATH') or exit('No direct script access allowed');
 
 use chriskacerguis\RestServer\RestController;
 
-defined('BASEPATH') or exit('No direct script access allowed');
 class TodoConRest extends RestController
 {
     public function __construct()
