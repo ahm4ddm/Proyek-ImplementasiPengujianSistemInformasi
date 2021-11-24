@@ -1,11 +1,16 @@
 <?php
+
+use phpDocumentor\Reflection\PseudoTypes\False_;
+
 class LeadMod extends CI_Model
 {
     public function getLeaderboard()
     {
-        $this->db->start_cache();
-        $this->db->select('username')->from('users')->get()->result();
-        $this->db->stop_cache();
-        return  $this->db->select('id_user')->select_sum('totalwaktu')->from('pomodoros')->get()->result();
+        $this->db->select('username');
+        $this->db->from('users');
+        $this->db->join('pomodoros', 'users.id = pomodoros.id_user');
+        $this->db->select_sum('totalwaktu')->order_by('totalwaktu', 'DESC');
+        $query = $this->db->group_by('pomodoros.id_user')->get()->result();
+        return $query;
     }
 }
