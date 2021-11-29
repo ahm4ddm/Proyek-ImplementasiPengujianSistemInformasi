@@ -70,27 +70,13 @@ class UserCon extends CI_Controller
                     $achievement = 'Grade A+';
                 } else if ($user_time['totalwaktu'] >= 9250) {
                     $achievement = 'Grade A';
-                } else if ($user_time['totalwaktu'] >= 9000) {
-                    $achievement = 'Grade A-';
                 } else if ($user_time['totalwaktu'] >= 8750) {
-                    $achievement = 'Grade B+';
-                } else if ($user_time['totalwaktu'] >= 8250) {
                     $achievement = 'Grade B';
-                } else if ($user_time['totalwaktu'] >= 8000) {
-                    $achievement = 'Grade B-';
-                } else if ($user_time['totalwaktu'] >= 7750) {
-                    $achievement = 'Grade C+';
-                } else if ($user_time['totalwaktu'] >= 7250) {
+                } else if ($user_time['totalwaktu'] >= 8250) {
                     $achievement = 'Grade C';
-                } else if ($user_time['totalwaktu'] >= 7000) {
-                    $achievement = 'Grade C-';
-                } else if ($user_time['totalwaktu'] >= 6750) {
-                    $achievement = 'Grade D+';
-                } else if ($user_time['totalwaktu'] >= 6250) {
+                } else if ($user_time['totalwaktu'] >= 7750) {
                     $achievement = 'Grade D';
-                } else if ($user_time['totalwaktu'] >= 6000) {
-                    $achievement = 'Grade D-';
-                } else if ($user_time['totalwaktu'] < 6000) {
+                } else if ($user_time['totalwaktu'] < 7250) {
                     $achievement = 'Grade E';
                 }
 
